@@ -7,23 +7,22 @@
 
 	"use strict";
 
-	$(window).stellar({
-    responsive: true,
-    parallaxBackgrounds: true,
-    parallaxElements: true,
-    horizontalScrolling: false,
-    hideDistantElements: false,
-    scrollProperty: 'scroll'
-  });
-
+	if ($.fn && $.fn.stellar) {
+		$(window).stellar({
+			responsive: true,
+			parallaxBackgrounds: true,
+			parallaxElements: true,
+			horizontalScrolling: false,
+			hideDistantElements: false,
+			scrollProperty: 'scroll'
+		});
+	}
 
 	var fullHeight = function() {
-
 		$('.js-fullheight').css('height', $(window).height());
 		$(window).resize(function(){
 			$('.js-fullheight').css('height', $(window).height());
 		});
-
 	};
 	fullHeight();
 
@@ -38,7 +37,9 @@
 	loader();
 
 	// Scrollax
-   $.Scrollax();
+	if ($.Scrollax) {
+		$.Scrollax();
+	}
 
 
    var burgerMenu = function() {
@@ -86,6 +87,17 @@
 
 	};
 	mobileMenuOutsideClick();
+
+	// Auto-close offcanvas on nav link click or modal open
+	$('#colorlib-main-menu a').on('click', function() {
+		$('body').removeClass('offcanvas');
+		$('.js-colorlib-nav-toggle').removeClass('active');
+	});
+
+	$(document).on('show.bs.modal', '.modal', function () {
+		$('body').removeClass('offcanvas');
+		$('.js-colorlib-nav-toggle').removeClass('active');
+	});
 
 	var carousel = function() {
 		$('.home-slider').owlCarousel({

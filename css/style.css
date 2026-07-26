@@ -8751,3 +8751,68 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+/* ==========================================================================
+   GLOBAL MOBILE & UI FIXES (Dzakirah Bouquet)
+   ========================================================================== */
+
+/* 1. Prevent horizontal overflow on mobile viewports */
+html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw;
+}
+
+/* 2. Hide burger menu (.colorlib-nav-toggle) when modal is open */
+body.modal-open .colorlib-nav-toggle {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* 3. Hide floating WA button when modal, offcanvas, or lightbox is active */
+body.modal-open .floating-wa-btn,
+body.offcanvas .floating-wa-btn,
+.mfp-bg ~ .floating-wa-btn,
+.mfp-wrap ~ .floating-wa-btn {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* 4. Ensure proper z-index layering for Bootstrap modals */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+.modal {
+    z-index: 1050 !important;
+}
+
+/* 5. Mobile Responsive Enhancements */
+@media (max-width: 767.98px) {
+    .modal-dialog {
+        margin: 10px auto;
+        padding: 0 5px;
+    }
+    .modal-content {
+        border-radius: 10px;
+    }
+    .modal-body {
+        padding: 15px !important;
+    }
+    .category-filter {
+        padding: 0 5px;
+        gap: 6px;
+    }
+    .filter-btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+    .author-info {
+        padding: 20px 15px !important;
+    }
+    .bouquet-img-wrapper {
+        height: 230px !important;
+    }
+}
+
