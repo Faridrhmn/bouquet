@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <title>Admin Dashboard - Dzakirah Bouquet</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="images/logo-circle.ico" type="image/x-icon" />
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <style>
+        :root {
+            --primary-gold: #a5742a;
+            --primary-dark: #8b5f20;
+            --bg-dark: #121619;
+            --card-bg: #ffffff;
+            --text-main: #2b2b2b;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f4f6f9;
+            color: var(--text-main);
+        }
+
+        /* Login Screen */
+        .login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e1e24 0%, #0d0e12 100%);
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .login-brand {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-brand img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(165,116,42,0.3);
+        }
+
+        .login-brand h3 {
+            font-weight: 700;
+            color: var(--primary-gold);
+            font-size: 22px;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .admin-navbar {
+            background: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .admin-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            color: var(--primary-gold);
+            font-size: 18px;
+            text-decoration: none !important;
+        }
+
+        .admin-brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+        }
+
+        /* KPI Stat Cards */
+        .stat-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 20px;
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: #fdf8f0;
+            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .stat-val {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #777;
+            font-weight: 500;
+        }
+
+        /* Navigation Tabs */
+        .nav-pills-custom .nav-link {
+            border-radius: 25px;
+            color: #555;
+            font-weight: 600;
+            padding: 8px 20px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-pills-custom .nav-link.active {
+            background-color: var(--primary-gold);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(165,116,42,0.3);
+        }
+
+        /* Product & Order Tables */
+        .content-card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+        }
+
+        .product-img-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .badge-webp {
+            background: #e6f4ea;
+            color: #137333;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 4px;
+        }
+
+        .badge-status {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending { background: #fff4e5; color: #b76e00; }
+        .status-diproses { background: #e3f2fd; color: #0d47a1; }
+        .status-selesai { background: #e6f4ea; color: #137333; }
+        .status-batal { background: #fce8e6; color: #c5221f; }
+
+        .btn-gold {
+            background: var(--primary-gold);
+            color: #fff !important;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            padding: 8px 18px;
+            transition: background 0.2s ease;
+        }
+
+        .btn-gold:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Image Preview Input */
+        .image-preview-container {
+            width: 100%;
+            height: 160px;
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            overflow: hidden;
+            cursor: pointer;
+            margin-top: 8px;
+            position: relative;
+        }
+
+        .image-preview-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-card">
+            <div class="login-brand">
+                <img src="images/logo.png" alt="Dzakirah Logo">
+                <h3>Admin Dzakirah Bouquet</h3>
+                <p class="text-muted text-sm mt-1">Masuk untuk mengelola katalog & pesanan</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group mb-3">
+                    <label class="font-weight-bold" style="font-size: 13px;">Username</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user text-muted"></i></span></div>
+                        <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan username" required>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="font-weight-bold" style="font-size: 13px;">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock text-muted"></i></span></div>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-gold btn-block btn-lg" style="border-radius: 10px;">
+                    <i class="fa fa-sign-in-alt mr-2"></i> Masuk Dashboard
+                </button>
+            </form>
+            <div id="loginError" class="alert alert-danger mt-3 text-center d-none" style="font-size: 13px;"></div>
+        </div>
+    </div>
+
+    <!-- 2. MAIN DASHBOARD CONTENT -->
+    <div id="dashboardApp" class="d-none">
+        <!-- Top Navbar -->
+        <nav class="admin-navbar d-flex justify-content-between align-items-center">
+            <a href="admin.html" class="admin-brand">
+                <img src="images/logo.png" alt="Dzakirah">
+                <span>Dzakirah Admin Panel</span>
+            </a>
+            <div class="d-flex align-items-center gap-3">
+                <span class="mr-3 text-muted d-none d-sm-inline" style="font-size: 14px;">
+                    <i class="fa fa-user-circle mr-1 text-warning"></i> <strong id="adminNameDisplay">Admin</strong>
+                </span>
+                <a href="index.html" target="_blank" class="btn btn-sm btn-outline-secondary mr-2" style="border-radius: 20px;">
+                    <i class="fa fa-external-link-alt mr-1"></i> Lihat Web
+                </a>
+                <button onclick="logoutAdmin()" class="btn btn-sm btn-outline-danger" style="border-radius: 20px;">
+                    <i class="fa fa-sign-out-alt mr-1"></i> Keluar
+                </button>
+            </div>
+        </nav>
+
+        <div class="container-fluid px-md-5 py-4">
+
+            <!-- KPI Stats Row -->
+            <div class="row">
+                <div class="col-md-3 col-sm-6" onclick="switchTab('products')" style="cursor: pointer;">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa fa-boxes"></i></div>
+                        <div>
+                            <div class="stat-val" id="statTotalProducts">0</div>
+                            <div class="stat-label">Total Produk Katalog</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" onclick="switchTab('orders')" style="cursor: pointer;">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fa fa-shopping-bag"></i></div>
+                        <div>
+                            <div class="stat-val" id="statTotalOrders">0</div>
+                            <div class="stat-label">Total Order</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" onclick="switchTab('reports')" style="cursor: pointer;">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#e6f4ea; color:#137333;"><i class="fa fa-wallet"></i></div>
+                        <div>
+                            <div class="stat-val" id="statTotalRevenue" style="font-size: 20px;">Rp 0</div>
+                            <div class="stat-label">Total Estimasi Omset</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" onclick="switchTab('orders')" style="cursor: pointer;">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background:#fff4e5; color:#b76e00;"><i class="fa fa-clock"></i></div>
+                        <div>
+                            <div class="stat-val" id="statPendingOrders">0</div>
+                            <div class="stat-label">Pesanan Pending</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation & Controls -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+                <ul class="nav nav-pills nav-pills-custom">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="tabProductsBtn" href="javascript:void(0)" onclick="switchTab('products')">
+                            <i class="fa fa-list mr-2"></i> Produk & Stok
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabOrdersBtn" href="javascript:void(0)" onclick="switchTab('orders')">
+                            <i class="fa fa-shopping-bag mr-2"></i> Order & Pembayaran
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabReportsBtn" href="javascript:void(0)" onclick="switchTab('reports')">
+                            <i class="fa fa-chart-line mr-2"></i> Laporan Keuangan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabReviewsBtn" href="javascript:void(0)" onclick="switchTab('reviews')">
+                            <i class="fa fa-star mr-2"></i> Ulasan Pelanggan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="tabSettingsBtn" href="javascript:void(0)" onclick="switchTab('settings')">
+                            <i class="fa fa-cog mr-2"></i> Pengaturan Toko & Login
+                        </a>
+                    </li>
+                </ul>
+
+                <button id="addProductHeaderBtn" class="btn btn-gold" onclick="openAddProductModal()">
+                    <i class="fa fa-plus-circle mr-1"></i> + Tambah Produk Baru
+                </button>
+            </div>
+
+            <!-- TAB 1: MANAJEMEN PRODUK -->
+            <div id="tabProductsView" class="content-card">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                    <h5 class="font-weight-bold mb-0">Daftar Produk Buket & Inventaris Stok</h5>
+                    <div class="d-flex gap-2" style="max-width: 320px;">
+                        <input type="text" id="searchProductInput" class="form-control form-control-sm" placeholder="Cari nama produk..." onkeyup="filterProductTable()">
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Foto</th>
+                                <th>Nama Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga Jual</th>
+                                <th>Modal (HPP)</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            <tr><td colspan="8" class="text-center py-4 text-muted">Memuat data produk dari PostgreSQL...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: HISTORI PESANAN WA & ONLINE -->
+            <div id="tabOrdersView" class="content-card d-none">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                    <h5 class="font-weight-bold mb-0">Rekapitulasi Log Pesanan & Verifikasi Bayar</h5>
+                    <div class="d-flex gap-2 align-items-center">
+                        <div class="btn-group btn-group-sm mr-2" role="group">
+                            <button type="button" class="btn btn-outline-secondary active" id="btnFilterAll" onclick="filterOrdersByDate('all')">Semua Pesanan</button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnFilterToday" onclick="filterOrdersByDate('today')">📅 Acara Hari Ini</button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnFilterTomorrow" onclick="filterOrdersByDate('tomorrow')">📅 Acara Besok</button>
+                        </div>
+                        <button class="btn btn-sm btn-success mr-1" onclick="exportOrdersToCSV()" title="Download Rekap CSV">
+                            <i class="fa fa-file-excel mr-1"></i> Export CSV
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" onclick="loadOrders()">
+                            <i class="fa fa-sync-alt mr-1"></i> Refresh
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Kode Order</th>
+                                <th>Pemesan</th>
+                                <th>No. WA</th>
+                                <th>Tgl Pakai</th>
+                                <th>Total Biaya</th>
+                                <th>Pembayaran</th>
+                                <th>Status Order</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orderTableBody">
+                            <tr><td colspan="8" class="text-center py-4 text-muted">Memuat data pesanan...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: LAPORAN KEUANGAN & MARGIN -->
+            <div id="tabReportsView" class="content-card d-none">
+                <h5 class="font-weight-bold mb-3">📈 Ringkasan Laporan Keuangan & Estimasi Profit</h5>
+                <div class="row mb-4">
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <small class="text-muted font-weight-bold">TOTAL OMSET (GROSS)</small>
+                            <h3 id="reportGrossSales" class="font-weight-bold text-primary mt-1 mb-0">Rp 0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <small class="text-muted font-weight-bold">PEMBAYARAN LUNAS</small>
+                            <h3 id="reportPaidSales" class="font-weight-bold text-success mt-1 mb-0">Rp 0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <small class="text-muted font-weight-bold">ESTIMASI HPP (MODAL)</small>
+                            <h3 id="reportEstimHPP" class="font-weight-bold text-warning mt-1 mb-0">Rp 0</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="p-3 border rounded bg-white shadow-sm">
+                            <small class="text-muted font-weight-bold">LABA BERSIH (ESTIMATED)</small>
+                            <h3 id="reportNetProfit" class="font-weight-bold text-success mt-1 mb-0">Rp 0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-3 border-danger bg-white">
+                    <h6 class="font-weight-bold text-danger mb-2"><i class="fa fa-exclamation-triangle mr-1"></i> Peringatan Stok Produk Menipis (< 5 unit)</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Produk</th>
+                                    <th>Sisa Stok</th>
+                                    <th>Harga Jual</th>
+                                    <th>HPP Modal</th>
+                                    <th>Aksi Tambah</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lowStockTableBody">
+                                <tr><td colspan="5" class="text-muted">Memuat data stok...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: KELOLA ULASAN PELANGGAN -->
+            <div id="tabReviewsView" class="content-card d-none">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="font-weight-bold mb-0">⭐ Kelola Ulasan & Rating Pelanggan (UGC)</h5>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="loadAdminReviews()"><i class="fa fa-sync-alt mr-1"></i> Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Produk</th>
+                                <th>Nama Pemesan</th>
+                                <th>Rating</th>
+                                <th>Komentar</th>
+                                <th>Foto UGC</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reviewsTableBody">
+                            <tr><td colspan="7" class="text-center py-4 text-muted">Memuat data ulasan...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 5: PENGATURAN TOKO & AKUN ADMIN -->
+            <div id="tabSettingsView" class="content-card d-none">
+                <h5 class="font-weight-bold mb-4">⚙️ Pengaturan Toko & Akses Login Admin</h5>
+                
+                <div class="row">
+                    <!-- Pengaturan Kredensial Login Admin -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card p-4 border shadow-sm rounded-lg">
+                            <h6 class="font-weight-bold text-primary mb-3"><i class="fa fa-key mr-2"></i> Ganti Username & Password Admin</h6>
+                            <form id="adminAccountForm">
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Username Admin <span class="text-danger">*</span></label>
+                                    <input type="text" id="settingAdminUsername" class="form-control" placeholder="admin" required>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Nama Tampilan Admin</label>
+                                    <input type="text" id="settingAdminName" class="form-control" placeholder="Admin Dzakirah">
+                                </div>
+                                <hr>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Password Saat Ini (Wajib jika ingin ubah password)</label>
+                                    <input type="password" id="settingCurrentPassword" class="form-control" placeholder="••••••••">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Password Baru (Kosongkan jika tidak ingin diubah)</label>
+                                    <input type="password" id="settingNewPassword" class="form-control" placeholder="••••••••">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block font-weight-bold py-2">
+                                    💾 Simpan Kredensial Login Admin
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Pengaturan WhatsApp & Merchant Toko -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card p-4 border shadow-sm rounded-lg">
+                            <h6 class="font-weight-bold text-success mb-3"><i class="fab fa-whatsapp mr-2"></i> Pengaturan WhatsApp & Merchant Toko</h6>
+                            <form id="storeSettingsForm">
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Nomor WhatsApp Toko <span class="text-danger">*</span></label>
+                                    <input type="text" id="settingStoreWa" class="form-control" placeholder="082135621780" required>
+                                    <small class="text-muted d-block mt-1">Nomor ini digunakan untuk kirim order WhatsApp & tombol floating WA.</small>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Nama Merchant QRIS / Pemilik Toko</label>
+                                    <input type="text" id="settingQrisName" class="form-control" placeholder="Dzakirah Bouquet Jogja">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Atas Nama (A/N) Rekening Bank</label>
+                                    <input type="text" id="settingAccountHolder" class="form-control" placeholder="Dzakirah Bouquet">
+                                </div>
+                                
+                                <hr class="my-3">
+                                <h6 class="font-weight-bold text-dark mb-2" style="font-size: 13px;">📋 Pengaturan Rekening Multi-Bank Toko:</h6>
+
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-bold small">Nomor Rekening Bank BCA</label>
+                                    <input type="text" id="settingBcaAcc" class="form-control form-control-sm" placeholder="1234567890">
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-bold small">Nomor Rekening Bank Mandiri</label>
+                                    <input type="text" id="settingMandiriAcc" class="form-control form-control-sm" placeholder="1370012345678">
+                                </div>
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-bold small">Nomor Rekening Bank BRI</label>
+                                    <input type="text" id="settingBriAcc" class="form-control form-control-sm" placeholder="002101001234567">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="font-weight-bold small">Nomor Rekening Bank BNI</label>
+                                    <input type="text" id="settingBniAcc" class="form-control form-control-sm" placeholder="0123456789">
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-block font-weight-bold py-2">
+                                    💾 Simpan Pengaturan Rekening Bank & Toko
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- MODAL: TAMBAH / EDIT PRODUK -->
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px;">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title font-weight-bold" id="productModalTitle">Tambah Produk Baru</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="productForm">
+                        <input type="hidden" id="editProductId">
+
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold" style="font-size: 13px;">Nama Produk <span class="text-danger">*</span></label>
+                            <input type="text" id="prodName" class="form-control" placeholder="Contoh: Rose Pink Artificial (L)" required>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="font-weight-bold" style="font-size: 13px;">Kategori <span class="text-danger">*</span></label>
+                                <select id="prodCategory" class="form-control" required>
+                                    <option value="artificial">🌸 Bunga Artificial</option>
+                                    <option value="snack-money">🍫 Snack & Uang</option>
+                                    <option value="graduation">🎓 Wisuda & Boneka</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="font-weight-bold" style="font-size: 13px;">Harga Jual (Rp) <span class="text-danger">*</span></label>
+                                <input type="number" id="prodPrice" class="form-control" placeholder="65000" min="0" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="font-weight-bold" style="font-size: 13px;">Harga Modal / HPP (Rp)</label>
+                                <input type="number" id="prodCostPrice" class="form-control" placeholder="35000" min="0">
+                            </div>
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="font-weight-bold" style="font-size: 13px;">Stok Tersedia (Unit) <span class="text-danger">*</span></label>
+                                <input type="number" id="prodStockQuantity" class="form-control" placeholder="10" min="0" value="10" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold" style="font-size: 13px;">Deskripsi Produk</label>
+                            <textarea id="prodDescription" class="form-control" rows="2" placeholder="Deskripsi singkat isi buket, ukuran, dll..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-group mb-3">
+                                <label class="font-weight-bold" style="font-size: 13px;">Badge Tag</label>
+                                <select id="prodBadge" class="form-control">
+                                    <option value="Ready Stock">Ready Stock</option>
+                                    <option value="Best Seller">Best Seller</option>
+                                    <option value="Favorit">Favorit</option>
+                                    <option value="Popular">Popular</option>
+                                    <option value="Hemat">Hemat</option>
+                                    <option value="Elegan">Elegan</option>
+                                    <option value="Wisuda Best">Wisuda Best</option>
+                                    <option value="Special Gift">Special Gift</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group mb-3 d-flex align-items-center mt-3">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="prodActive" checked>
+                                    <label class="custom-control-label font-weight-bold" for="prodActive">Status Aktif (Tampil di Web)</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image File Picker + WebP Auto Compress Notice -->
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold" style="font-size: 13px;">Foto Produk</label>
+                            <input type="file" id="prodImageFile" class="form-control-file d-none" accept="image/*" onchange="previewSelectedImage(event)">
+                            <input type="hidden" id="prodImageUrl">
+
+                            <div class="image-preview-container" onclick="document.getElementById('prodImageFile').click()">
+                                <img id="imagePreviewImg" src="images/Cover.jpg" alt="Preview Image">
+                                <div style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.6); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 4px;">
+                                    <i class="fa fa-camera mr-1"></i> Klik ganti foto
+                                </div>
+                            </div>
+                            <small class="text-muted mt-1 d-block" style="font-size: 11px;">
+                                <i class="fa fa-magic text-warning mr-1"></i> Foto akan di-resize & di-kompresi otomatis ke format modern WebP oleh backend server.
+                            </small>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold btn-block mt-4" style="border-radius: 8px; padding: 10px;">
+                            <i class="fa fa-save mr-1"></i> Simpan Produk
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: DETAIL PESANAN KARTU UCAPAN -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px;">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title font-weight-bold">💌 Detail Pesanan & Kartu Ucapan</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4" id="orderDetailsBody">
+                    <!-- Dynamic Order Details -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: UNGGAH FOTO BUKET SELESAI -->
+    <div class="modal fade" id="uploadCompletionModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px;">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title font-weight-bold" style="color:#fff !important;">🌸 Unggah Foto Buket Selesai</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="uploadCompletionForm">
+                        <input type="hidden" id="completionOrderId">
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold small">Pilih Foto Hasil Buket yang Sudah Dirangkai:</label>
+                            <input type="file" id="completionFileInput" class="form-control-file border p-2 rounded" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block font-weight-bold">Simpan & Tampilkan ke Pembeli</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: LIHAT BUKTI PEMBAYARAN -->
+    <div class="modal fade" id="proofViewModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px;">
+                <div class="modal-header bg-info text-white">
+                    <h5 class="modal-title font-weight-bold" style="color:#fff !important;">💳 Bukti Pembayaran Pelanggan</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <img id="proofViewImg" src="" alt="Bukti Pembayaran" class="img-fluid rounded border shadow-sm" style="max-height: 400px; object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+        const API_BASE = ""; // Relative URL
+        let currentProducts = [];
+        let currentOrders = [];
+        let currentReviews = [];
+
+        function getAuthToken() {
+            return localStorage.getItem("dzakirah_admin_token");
+        }
+
+        function setAuthToken(token) {
+            localStorage.setItem("dzakirah_admin_token", token);
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem("dzakirah_admin_token");
+            location.reload();
+        }
+
+        function formatRp(num) {
+            return "Rp " + parseInt(num || 0).toLocaleString('id-ID');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = getAuthToken();
+            if (token) {
+                verifySession(token);
+            } else {
+                showLoginScreen();
+            }
+
+            document.getElementById("loginForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const username = document.getElementById("loginUsername").value.trim();
+                const password = document.getElementById("loginPassword").value;
+                const errDiv = document.getElementById("loginError");
+                errDiv.classList.add("d-none");
+
+                try {
+                    const res = await fetch("/api/auth/login", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        setAuthToken(data.token);
+                        showDashboard(data.user);
+                    } else {
+                        errDiv.textContent = data.message || "Login gagal";
+                        errDiv.classList.remove("d-none");
+                    }
+                } catch (err) {
+                    errDiv.textContent = "Gagal terhubung ke server backend.";
+                    errDiv.classList.remove("d-none");
+                }
+            });
+
+            // Product Form Submit Handler
+            document.getElementById("productForm").addEventListener("submit", async function (e) {
+                e.preventDefault();
+                const editId = document.getElementById("editProductId").value;
+                const formData = new FormData();
+
+                formData.append("name", document.getElementById("prodName").value.trim());
+                formData.append("category_slug", document.getElementById("prodCategory").value);
+                formData.append("price", document.getElementById("prodPrice").value);
+                formData.append("cost_price", document.getElementById("prodCostPrice").value);
+                formData.append("stock_quantity", document.getElementById("prodStockQuantity").value);
+                formData.append("description", document.getElementById("prodDescription").value);
+                formData.append("badge", document.getElementById("prodBadge").value);
+                formData.append("is_active", document.getElementById("prodActive").checked);
+
+                const fileInput = document.getElementById("prodImageFile");
+                if (fileInput.files.length > 0) {
+                    formData.append("image", fileInput.files[0]);
+                } else {
+                    formData.append("image_url", document.getElementById("prodImageUrl").value);
+                }
+
+                const url = editId ? `/api/products/${editId}` : "/api/products";
+                const method = editId ? "PUT" : "POST";
+
+                try {
+                    const res = await fetch(url, {
+                        method: method,
+                        headers: { "Authorization": `Bearer ${getAuthToken()}` },
+                        body: formData
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        $('#productModal').modal('hide');
+                        loadProducts();
+                        loadFinancialReports();
+                        alert(editId ? "Produk berhasil diperbarui!" : "Produk baru berhasil ditambahkan!");
+                    } else {
+                        alert("Gagal menyimpan produk: " + data.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan koneksi server.");
+                }
+            });
+
+            // Upload Completion Photo Submit
+            document.getElementById("uploadCompletionForm").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                const orderId = document.getElementById("completionOrderId").value;
+                const fileInput = document.getElementById("completionFileInput");
+                if (!fileInput.files || fileInput.files.length === 0) return;
+
+                const formData = new FormData();
+                formData.append("completion", fileInput.files[0]);
+
+                try {
+                    const res = await fetch(`/api/orders/${orderId}/upload-completion`, {
+                        method: "POST",
+                        headers: { "Authorization": `Bearer ${getAuthToken()}` },
+                        body: formData
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                        $('#uploadCompletionModal').modal('hide');
+                        alert("🌸 Foto hasil buket selesai berhasil diunggah!");
+                        loadOrders();
+                    } else {
+                        alert("Gagal mengunggah foto: " + json.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan saat unggah foto.");
+                }
+            });
+
+            // Admin Account Form Handler (Username & Password update)
+            document.getElementById("adminAccountForm").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                const username = document.getElementById("settingAdminUsername").value.trim();
+                const name = document.getElementById("settingAdminName").value.trim();
+                const current_password = document.getElementById("settingCurrentPassword").value;
+                const new_password = document.getElementById("settingNewPassword").value;
+
+                try {
+                    const res = await fetch("/api/auth/update-profile", {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${getAuthToken()}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ username, name, current_password, new_password })
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                        alert("✅ Kredensial login admin berhasil diperbarui!");
+                        document.getElementById("adminNameDisplay").textContent = json.user.name || json.user.username;
+                        document.getElementById("settingCurrentPassword").value = "";
+                        document.getElementById("settingNewPassword").value = "";
+                    } else {
+                        alert("Gagal memperbarui profil: " + json.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan koneksi server.");
+                }
+            });
+
+            // Store Settings Form Handler (WhatsApp & Multi-Bank Info)
+            document.getElementById("storeSettingsForm").addEventListener("submit", async function(e) {
+                e.preventDefault();
+                const whatsapp_number = document.getElementById("settingStoreWa").value.trim();
+                const qris_merchant_name = document.getElementById("settingQrisName").value.trim();
+                const account_holder = document.getElementById("settingAccountHolder").value.trim();
+                const bca_account = document.getElementById("settingBcaAcc").value.trim();
+                const mandiri_account = document.getElementById("settingMandiriAcc").value.trim();
+                const bri_account = document.getElementById("settingBriAcc").value.trim();
+                const bni_account = document.getElementById("settingBniAcc").value.trim();
+
+                try {
+                    const res = await fetch("/api/settings", {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${getAuthToken()}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            whatsapp_number,
+                            qris_merchant_name,
+                            account_holder,
+                            bca_account,
+                            mandiri_account,
+                            bri_account,
+                            bni_account
+                        })
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                        alert("✅ Pengaturan Rekening Bank & Toko berhasil disimpan!");
+                    } else {
+                        alert("Gagal menyimpan pengaturan toko: " + json.message);
+                    }
+                } catch (err) {
+                    alert("Terjadi kesalahan server.");
+                }
+            });
+        });
+
+        async function verifySession(token) {
+            try {
+                const res = await fetch("/api/auth/me", {
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showDashboard(data.user);
+                } else {
+                    showLoginScreen();
+                }
+            } catch (err) {
+                showLoginScreen();
+            }
+        }
+
+        function showLoginScreen() {
+            document.getElementById("loginScreen").classList.remove("d-none");
+            document.getElementById("dashboardApp").classList.add("d-none");
+        }
+
+        function showDashboard(user) {
+            document.getElementById("loginScreen").classList.add("d-none");
+            document.getElementById("dashboardApp").classList.remove("d-none");
+            document.getElementById("adminNameDisplay").textContent = user ? user.name : "Admin";
+
+            loadProducts();
+            loadOrders();
+            loadFinancialReports();
+        }
+
+        // Switch Tabs (Products, Orders, Reports, Reviews, Settings)
+        function switchTab(tab) {
+            const tabMap = {
+                'products': { view: 'tabProductsView', btn: 'tabProductsBtn' },
+                'orders': { view: 'tabOrdersView', btn: 'tabOrdersBtn' },
+                'reports': { view: 'tabReportsView', btn: 'tabReportsBtn' },
+                'reviews': { view: 'tabReviewsView', btn: 'tabReviewsBtn' },
+                'settings': { view: 'tabSettingsView', btn: 'tabSettingsBtn' }
+            };
+
+            Object.keys(tabMap).forEach(key => {
+                const item = tabMap[key];
+                const viewEl = document.getElementById(item.view);
+                const btnEl = document.getElementById(item.btn);
+                if (viewEl) viewEl.classList.add("d-none");
+                if (btnEl) btnEl.classList.remove("active");
+            });
+
+            const target = tabMap[tab];
+            if (target) {
+                const activeView = document.getElementById(target.view);
+                const activeBtn = document.getElementById(target.btn);
+                if (activeView) activeView.classList.remove("d-none");
+                if (activeBtn) activeBtn.classList.add("active");
+            }
+
+            const addBtn = document.getElementById("addProductHeaderBtn");
+            if (tab === 'products') {
+                if (addBtn) addBtn.classList.remove("d-none");
+            } else {
+                if (addBtn) addBtn.classList.add("d-none");
+            }
+
+            if (tab === 'orders') loadOrders();
+            if (tab === 'reports') loadFinancialReports();
+            if (tab === 'reviews') loadAdminReviews();
+            if (tab === 'settings') loadStoreSettings();
+        }
+
+        async function loadStoreSettings() {
+            try {
+                const meRes = await fetch("/api/auth/me", {
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const meJson = await meRes.json();
+                if (meJson.success && meJson.user) {
+                    document.getElementById("settingAdminUsername").value = meJson.user.username || "admin";
+                    document.getElementById("settingAdminName").value = meJson.user.name || "Admin Dzakirah";
+                }
+
+                const setRes = await fetch("/api/settings");
+                const setJson = await setRes.json();
+                if (setJson.success && setJson.data) {
+                    const d = setJson.data;
+                    document.getElementById("settingStoreWa").value = d.whatsapp_number || "082135621780";
+                    document.getElementById("settingQrisName").value = d.qris_merchant_name || "Dzakirah Bouquet Jogja";
+                    document.getElementById("settingAccountHolder").value = d.account_holder || "Dzakirah Bouquet";
+                    document.getElementById("settingBcaAcc").value = d.bca_account || "1234567890";
+                    document.getElementById("settingMandiriAcc").value = d.mandiri_account || "1370012345678";
+                    document.getElementById("settingBriAcc").value = d.bri_account || "002101001234567";
+                    document.getElementById("settingBniAcc").value = d.bni_account || "0123456789";
+                }
+            } catch (err) {
+                console.error("Gagal memuat pengaturan toko:", err);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const res = await fetch("/api/products?include_inactive=true");
+                const data = await res.json();
+                if (data.success) {
+                    currentProducts = data.data;
+                    renderProductsTable(currentProducts);
+                    document.getElementById("statTotalProducts").textContent = currentProducts.length;
+                }
+            } catch (err) {
+                console.error("Gagal memuat produk:", err);
+            }
+        }
+
+        function renderProductsTable(products) {
+            const tbody = document.getElementById("productTableBody");
+            tbody.innerHTML = "";
+
+            if (products.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Belum ada produk di database.</td></tr>`;
+                return;
+            }
+
+            products.forEach(p => {
+                const tr = document.createElement("tr");
+                const isWebp = p.image_url.endsWith(".webp");
+                const stockVal = p.stock_quantity !== undefined ? p.stock_quantity : 10;
+                const stockBadgeClass = stockVal <= 3 ? 'badge-danger' : (stockVal <= 5 ? 'badge-warning' : 'badge-success');
+
+                tr.innerHTML = `
+                    <td>
+                        <img src="${p.image_url}" class="product-img-thumb" alt="${p.name}">
+                    </td>
+                    <td>
+                        <strong class="text-dark">${p.name}</strong>
+                        ${isWebp ? '<span class="badge-webp">WebP</span>' : ''}
+                    </td>
+                    <td><span class="badge badge-light border">${p.category_slug}</span></td>
+                    <td class="font-weight-bold text-success">${formatRp(p.price)}</td>
+                    <td class="font-weight-bold text-muted">${formatRp(p.cost_price || Math.round(p.price*0.6))}</td>
+                    <td><span class="badge ${stockBadgeClass} px-2 py-1">${stockVal} unit</span></td>
+                    <td>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="switch_${p.id}" ${p.is_active ? 'checked' : ''} onchange="toggleProductActive(${p.id}, this.checked)">
+                            <label class="custom-control-label" for="switch_${p.id}">${p.is_active ? 'Aktif' : 'Nonaktif'}</label>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary mr-1" onclick="openEditProductModal(${p.id})">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteProduct(${p.id})">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function toggleProductActive(id, isActive) {
+            try {
+                await fetch(`/api/products/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${getAuthToken()}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ is_active: isActive })
+                });
+            } catch (err) {
+                alert("Gagal merubah status produk");
+            }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm("Apakah Anda yakin ingin menghapus produk ini?")) return;
+            try {
+                const res = await fetch(`/api/products/${id}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadProducts();
+                    loadFinancialReports();
+                } else {
+                    alert(data.message);
+                }
+            } catch (err) {
+                alert("Gagal menghapus produk.");
+            }
+        }
+
+        function openAddProductModal() {
+            document.getElementById("productModalTitle").textContent = "Tambah Produk Baru";
+            document.getElementById("editProductId").value = "";
+            document.getElementById("prodName").value = "";
+            document.getElementById("prodCategory").value = "artificial";
+            document.getElementById("prodPrice").value = "65000";
+            document.getElementById("prodCostPrice").value = "35000";
+            document.getElementById("prodStockQuantity").value = "10";
+            document.getElementById("prodDescription").value = "";
+            document.getElementById("prodBadge").value = "Ready Stock";
+            document.getElementById("prodActive").checked = true;
+            document.getElementById("prodImageUrl").value = "images/Cover.jpg";
+            document.getElementById("imagePreviewImg").src = "images/Cover.jpg";
+            document.getElementById("prodImageFile").value = "";
+
+            $('#productModal').modal('show');
+        }
+
+        function openEditProductModal(id) {
+            const p = currentProducts.find(item => item.id === id);
+            if (!p) return;
+
+            document.getElementById("productModalTitle").textContent = "Edit Produk";
+            document.getElementById("editProductId").value = p.id;
+            document.getElementById("prodName").value = p.name;
+            document.getElementById("prodCategory").value = p.category_slug;
+            document.getElementById("prodPrice").value = p.price;
+            document.getElementById("prodCostPrice").value = p.cost_price || Math.round(p.price * 0.6);
+            document.getElementById("prodStockQuantity").value = p.stock_quantity !== undefined ? p.stock_quantity : 10;
+            document.getElementById("prodDescription").value = p.description || "";
+            document.getElementById("prodBadge").value = p.badge;
+            document.getElementById("prodActive").checked = p.is_active;
+            document.getElementById("prodImageUrl").value = p.image_url;
+            document.getElementById("imagePreviewImg").src = p.image_url;
+            document.getElementById("prodImageFile").value = "";
+
+            $('#productModal').modal('show');
+        }
+
+        function previewSelectedImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("imagePreviewImg").src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function filterProductTable() {
+            const query = document.getElementById("searchProductInput").value.toLowerCase();
+            const filtered = currentProducts.filter(p => p.name.toLowerCase().includes(query) || p.category_slug.toLowerCase().includes(query));
+            renderProductsTable(filtered);
+        }
+
+        // Fetch Orders & Summary
+        async function loadOrders() {
+            try {
+                const res = await fetch("/api/orders", {
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const data = await res.json();
+                if (data.success) {
+                    currentOrders = data.data;
+                    renderOrdersTable(currentOrders);
+
+                    const stats = data.stats;
+                    document.getElementById("statTotalOrders").textContent = stats.total_orders || 0;
+                    document.getElementById("statTotalRevenue").textContent = formatRp(stats.total_revenue || 0);
+                    document.getElementById("statPendingOrders").textContent = stats.pending_orders || 0;
+                }
+            } catch (err) {
+                console.error("Gagal memuat log pesanan:", err);
+            }
+        }
+
+        function renderOrdersTable(orders) {
+            const tbody = document.getElementById("orderTableBody");
+            tbody.innerHTML = "";
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">Belum ada log pesanan tercatat.</td></tr>`;
+                return;
+            }
+
+            orders.forEach(o => {
+                const dateStr = new Date(o.use_date).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
+                const tr = document.createElement("tr");
+
+                let statusClass = "status-pending";
+                if (o.status === "Diproses") statusClass = "status-diproses";
+                if (o.status === "Selesai") statusClass = "status-selesai";
+                if (o.status === "Batal") statusClass = "status-batal";
+
+                const payStatus = o.payment_status || 'Unpaid';
+                const payBadgeClass = payStatus === 'Paid' ? 'badge-success' : 'badge-warning';
+
+                tr.innerHTML = `
+                    <td><strong class="text-primary">${o.order_code}</strong></td>
+                    <td><strong>${o.customer_name}</strong></td>
+                    <td><a href="https://wa.me/${o.customer_phone.replace(/[^0-9]/g, '')}" target="_blank" class="text-success"><i class="fab fa-whatsapp mr-1"></i>${o.customer_phone}</a></td>
+                    <td>${dateStr}</td>
+                    <td class="font-weight-bold text-success">${formatRp(o.total_price)}</td>
+                    <td>
+                        <small class="d-block text-muted mb-1">${o.payment_method || 'Manual'}</small>
+                        <select class="form-control form-control-sm font-weight-bold" onchange="updatePaymentStatus(${o.id}, this.value)" style="font-size: 11px; width: 100px;">
+                            <option value="Unpaid" ${payStatus === 'Unpaid' ? 'selected' : ''}>⏳ Unpaid</option>
+                            <option value="Paid" ${payStatus === 'Paid' ? 'selected' : ''}>✅ Paid</option>
+                            <option value="Refunded" ${payStatus === 'Refunded' ? 'selected' : ''}>❌ Refunded</option>
+                        </select>
+                        ${o.payment_proof_url ? `<button class="btn btn-sm btn-link p-0 text-info mt-1" onclick="openProofModal('${o.payment_proof_url}')">📷 Cek Bukti</button>` : ''}
+                    </td>
+                    <td>
+                        <select class="form-control form-control-sm ${statusClass} font-weight-bold" onchange="updateOrderStatus(${o.id}, this.value)" style="border-radius: 12px; width: 110px;">
+                            <option value="Pending" ${o.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Diproses" ${o.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+                            <option value="Selesai" ${o.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            <option value="Batal" ${o.status === 'Batal' ? 'selected' : ''}>Batal</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="btn btn-sm btn-success mr-1 mb-1" onclick="sendWAStatusUpdate(${o.id})" title="Kirim WA">
+                            <i class="fab fa-whatsapp"></i> WA
+                        </button>
+                        <button class="btn btn-sm btn-outline-info mr-1 mb-1" onclick="viewOrderDetails(${o.id})" title="Ucapan">
+                            <i class="fa fa-envelope"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-success mr-1 mb-1" onclick="openCompletionModal(${o.id})" title="Unggah Foto Selesai">
+                            🌸 Foto
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger mb-1" onclick="deleteOrder(${o.id})">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openProofModal(imgUrl) {
+            document.getElementById("proofViewImg").src = imgUrl;
+            $('#proofViewModal').modal('show');
+        }
+
+        function openCompletionModal(orderId) {
+            document.getElementById("completionOrderId").value = orderId;
+            document.getElementById("completionFileInput").value = "";
+            $('#uploadCompletionModal').modal('show');
+        }
+
+        async function updatePaymentStatus(id, payStatus) {
+            try {
+                const res = await fetch(`/api/orders/${id}/payment-status`, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${getAuthToken()}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ payment_status: payStatus })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadOrders();
+                    loadFinancialReports();
+                }
+            } catch (err) {
+                alert("Gagal merubah status pembayaran.");
+            }
+        }
+
+        function sendWAStatusUpdate(id) {
+            const o = currentOrders.find(item => item.id === id);
+            if (!o) return;
+
+            let phone = o.customer_phone.replace(/\D/g, '');
+            if (phone.startsWith('0')) {
+                phone = '62' + phone.substring(1);
+            }
+
+            let msg = "";
+            if (o.status === "Pending") {
+                msg = `Halo kak ${o.customer_name}! Terima kasih sudah memesan buket di Dzakirah Bouquet (Kode Order: ${o.order_code}). Pesanan Anda senilai ${formatRp(o.total_price)} telah kami catat. Ada yang ingin ditanyakan lagi kak? 😊`;
+            } else if (o.status === "Diproses") {
+                msg = `Halo kak ${o.customer_name}! Kabar gembira, pesanan buket Anda (Kode Order: ${o.order_code}) saat ini sedang kami rangkai ya kak! 🌸 Pengerjaan diperkirakan selesai sesuai tanggal pakai (${new Date(o.use_date).toLocaleDateString('id-ID')}). ✨`;
+            } else if (o.status === "Selesai") {
+                msg = `Halo kak ${o.customer_name}! Buket pesanan Anda (Kode Order: ${o.order_code}) sudah SELESAI dirangkai dan siap diambil / dikirim! ❤️ Terima kasih telah mempercayakan momen spesial Anda kepada Dzakirah Bouquet 😊💐`;
+            } else if (o.status === "Batal") {
+                msg = `Halo kak ${o.customer_name}, mohon maaf pesanan buket (Kode Order: ${o.order_code}) terpaksa dibatalkan. Silakan hubungi kami kembali jika ada pertanyaan ya kak.`;
+            }
+
+            const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+            window.open(waUrl, "_blank");
+        }
+
+        function filterOrdersByDate(filterType) {
+            const btnAll = document.getElementById("btnFilterAll");
+            const btnToday = document.getElementById("btnFilterToday");
+            const btnTomorrow = document.getElementById("btnFilterTomorrow");
+
+            if (btnAll) btnAll.classList.remove("active");
+            if (btnToday) btnToday.classList.remove("active");
+            if (btnTomorrow) btnTomorrow.classList.remove("active");
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            let filtered = [...currentOrders];
+
+            if (filterType === 'today') {
+                if (btnToday) btnToday.classList.add("active");
+                filtered = currentOrders.filter(o => {
+                    const d = new Date(o.use_date);
+                    d.setHours(0, 0, 0, 0);
+                    return d.getTime() === today.getTime();
+                });
+            } else if (filterType === 'tomorrow') {
+                if (btnTomorrow) btnTomorrow.classList.add("active");
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+
+                filtered = currentOrders.filter(o => {
+                    const d = new Date(o.use_date);
+                    d.setHours(0, 0, 0, 0);
+                    return d.getTime() === tomorrow.getTime();
+                });
+            } else {
+                if (btnAll) btnAll.classList.add("active");
+            }
+
+            renderOrdersTable(filtered);
+        }
+
+        function exportOrdersToCSV() {
+            if (currentOrders.length === 0) {
+                alert("Tidak ada data pesanan untuk di-export.");
+                return;
+            }
+
+            let csv = "Kode Order,Nama Pemesan,No WhatsApp,Tanggal Pakai,Pengiriman,Pembayaran,Status Bayar,Warna Wrap,Addons,Total Harga,Status,Untuk (To),Dari (From),Pesan Ucapan,Waktu Order\n";
+
+            currentOrders.forEach(o => {
+                const dateStr = new Date(o.use_date).toISOString().split('T')[0];
+                const createdStr = new Date(o.created_at).toLocaleString('id-ID').replace(/,/g, '');
+                
+                const row = [
+                    `"${o.order_code}"`,
+                    `"${o.customer_name}"`,
+                    `"${o.customer_phone}"`,
+                    `"${dateStr}"`,
+                    `"${o.shipping_method}"`,
+                    `"${o.payment_method || 'Manual'}"`,
+                    `"${o.payment_status || 'Unpaid'}"`,
+                    `"${o.wrap_color}"`,
+                    `"${o.addons}"`,
+                    `"${o.total_price}"`,
+                    `"${o.status}"`,
+                    `"${o.card_to || ''}"`,
+                    `"${o.card_from || ''}"`,
+                    `"${(o.card_message || '').replace(/"/g, '""')}"`,
+                    `"${createdStr}"`
+                ];
+                csv += row.join(",") + "\n";
+            });
+
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            link.setAttribute("download", `Rekap_Pesanan_Dzakirah_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        async function updateOrderStatus(id, newStatus) {
+            try {
+                const res = await fetch(`/api/orders/${id}/status`, {
+                    method: "PATCH",
+                    headers: {
+                        "Authorization": `Bearer ${getAuthToken()}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    loadOrders();
+                    loadFinancialReports();
+                }
+            } catch (err) {
+                alert("Gagal merubah status pesanan.");
+            }
+        }
+
+        function viewOrderDetails(id) {
+            const o = currentOrders.find(item => item.id === id);
+            if (!o) return;
+
+            const body = document.getElementById("orderDetailsBody");
+            body.innerHTML = `
+                <div class="mb-3 p-3 bg-light rounded border">
+                    <h6 class="font-weight-bold text-primary mb-1">Kode Order: ${o.order_code}</h6>
+                    <div><strong>Pemesan:</strong> ${o.customer_name} (${o.customer_phone})</div>
+                    <div><strong>Pengiriman:</strong> ${o.shipping_method}</div>
+                    <div><strong>Pembayaran:</strong> ${o.payment_method || 'Manual'} (${o.payment_status})</div>
+                </div>
+
+                <div class="p-3 bg-warning-light border border-warning rounded">
+                    <h6 class="font-weight-bold text-dark mb-2"><i class="fa fa-heart text-danger mr-1"></i> Kartu Ucapan Gratis</h6>
+                    <div class="mb-1"><strong>Untuk (To):</strong> ${o.card_to || '-'}</div>
+                    <div class="mb-1"><strong>Dari (From):</strong> ${o.card_from || '-'}</div>
+                    <div class="mt-2 p-2 bg-white rounded border">
+                        <em>"${o.card_message || 'Tidak ada pesan khusus'}"</em>
+                    </div>
+                </div>
+            `;
+
+            $('#orderDetailsModal').modal('show');
+        }
+
+        async function deleteOrder(id) {
+            if (!confirm("Hapus log pesanan ini?")) return;
+            try {
+                await fetch(`/api/orders/${id}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                loadOrders();
+                loadFinancialReports();
+            } catch (err) {
+                alert("Gagal menghapus pesanan.");
+            }
+        }
+
+        // Financial Reports & Analytics
+        async function loadFinancialReports() {
+            try {
+                const res = await fetch("/api/admin/reports", {
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const json = await res.json();
+                if (json.success) {
+                    const s = json.summary;
+                    document.getElementById("reportGrossSales").textContent = formatRp(s.gross_sales);
+                    document.getElementById("reportPaidSales").textContent = formatRp(s.paid_sales);
+                    document.getElementById("reportEstimHPP").textContent = formatRp(s.estimated_hpp);
+                    document.getElementById("reportNetProfit").textContent = formatRp(s.estimated_net_profit);
+
+                    const tbody = document.getElementById("lowStockTableBody");
+                    tbody.innerHTML = "";
+                    if (json.low_stock_products.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" class="text-success text-center py-2"><i class="fa fa-check-circle mr-1"></i> Semua stok produk dalam kondisi aman (≥ 5 unit)</td></tr>';
+                        return;
+                    }
+
+                    json.low_stock_products.forEach(p => {
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                            <td><strong>${p.name}</strong></td>
+                            <td><span class="badge badge-danger px-2 py-1">${p.stock_quantity} unit</span></td>
+                            <td class="text-success font-weight-bold">${formatRp(p.price)}</td>
+                            <td class="text-muted">${formatRp(p.cost_price || Math.round(p.price*0.6))}</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-success" onclick="quickAddStock(${p.id}, ${p.stock_quantity})">
+                                    + Restok (+5)
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (err) {
+                console.error("Gagal memuat laporan keuangan:", err);
+            }
+        }
+
+        async function quickAddStock(productId, currentStock) {
+            try {
+                const res = await fetch(`/api/products/${productId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Authorization": `Bearer ${getAuthToken()}`,
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ stock_quantity: currentStock + 5 })
+                });
+                const json = await res.json();
+                if (json.success) {
+                    loadProducts();
+                    loadFinancialReports();
+                    alert("Stok berhasil ditambahkan +5 unit!");
+                }
+            } catch (err) {
+                alert("Gagal menambahkan stok.");
+            }
+        }
+
+        // Admin Reviews Management
+        async function loadAdminReviews() {
+            try {
+                const res = await fetch("/api/admin/reviews", {
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const json = await res.json();
+                if (json.success) {
+                    currentReviews = json.data;
+                    const tbody = document.getElementById("reviewsTableBody");
+                    tbody.innerHTML = "";
+
+                    if (currentReviews.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">Belum ada ulasan dari pelanggan.</td></tr>';
+                        return;
+                    }
+
+                    currentReviews.forEach(r => {
+                        const tr = document.createElement("tr");
+                        tr.innerHTML = `
+                            <td><strong class="text-dark">${r.product_name || 'Produk'}</strong></td>
+                            <td><strong>${r.customer_name}</strong></td>
+                            <td><span class="text-warning">${'⭐'.repeat(r.rating)}</span></td>
+                            <td><small class="text-muted">"${r.comment || ''}"</small></td>
+                            <td>${r.photo_url ? `<img src="${r.photo_url}" style="width:50px; height:50px; object-fit:cover; border-radius:6px;">` : '<span class="text-muted small">Tanpa Foto</span>'}</td>
+                            <td><small class="text-muted">${new Date(r.created_at).toLocaleDateString('id-ID')}</small></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteReview(${r.id})">
+                                    <i class="fa fa-trash"></i> Hapus
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+            } catch (err) {
+                console.error("Gagal memuat ulasan admin:", err);
+            }
+        }
+
+        async function deleteReview(id) {
+            if (!confirm("Hapus ulasan ini?")) return;
+            try {
+                const res = await fetch(`/api/admin/reviews/${id}`, {
+                    method: "DELETE",
+                    headers: { "Authorization": `Bearer ${getAuthToken()}` }
+                });
+                const json = await res.json();
+                if (json.success) {
+                    loadAdminReviews();
+                }
+            } catch (err) {
+                alert("Gagal menghapus ulasan.");
+            }
+        }
+    </script>
+</body>
+
+</html>
