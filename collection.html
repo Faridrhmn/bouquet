@@ -259,6 +259,55 @@
         .btn-track-order:after, .btn-track-order:hover:after {
             display: none !important;
         }
+
+        /* Mobile Responsive Enhancements */
+        @media (max-width: 767.98px) {
+            .category-filter {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .filter-btn {
+                flex: 0 0 auto;
+                padding: 6px 16px;
+                font-size: 13px;
+            }
+            .bouquet-img-wrapper {
+                height: 210px;
+            }
+            .bouquet-content {
+                padding: 14px 12px;
+            }
+            .bouquet-title {
+                font-size: 14px;
+            }
+            .bouquet-price {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+            .modal-dialog {
+                margin: 10px auto;
+            }
+            .modal-body {
+                padding: 16px 14px !important;
+            }
+            .floating-wa-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 26px;
+                bottom: 18px;
+                right: 18px;
+            }
+            .price-summary-box {
+                flex-direction: column;
+                gap: 4px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 

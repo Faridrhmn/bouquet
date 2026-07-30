@@ -218,6 +218,55 @@
             height: 100%;
             object-fit: cover;
         }
+
+        /* Mobile Responsive Enhancements */
+        @media (max-width: 767.98px) {
+            .nav-pills-custom {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 8px;
+                width: 100%;
+                -webkit-overflow-scrolling: touch;
+            }
+            .nav-pills-custom .nav-item {
+                flex: 0 0 auto;
+            }
+            .nav-pills-custom .nav-link {
+                padding: 6px 14px;
+                font-size: 13px;
+            }
+            .stat-card {
+                padding: 14px;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+            .stat-val {
+                font-size: 18px;
+            }
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            .content-card {
+                padding: 16px 12px;
+            }
+            .admin-navbar {
+                padding: 10px 14px;
+            }
+            .login-card {
+                margin: 15px;
+                padding: 20px;
+            }
+            .modal-dialog {
+                margin: 10px auto;
+            }
+            .modal-body {
+                padding: 16px 14px !important;
+            }
+        }
     </style>
 </head>
 
