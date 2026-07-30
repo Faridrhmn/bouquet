@@ -266,6 +266,15 @@
             .modal-body {
                 padding: 16px 14px !important;
             }
+            .w-100-mobile {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 8px;
+            }
+            .btn-group-sm > .btn {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
         }
     </style>
 </head>
@@ -435,18 +444,20 @@
             <div id="tabOrdersView" class="content-card d-none">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 class="font-weight-bold mb-0">Rekapitulasi Log Pesanan & Verifikasi Bayar</h5>
-                    <div class="d-flex gap-2 align-items-center">
-                        <div class="btn-group btn-group-sm mr-2" role="group">
-                            <button type="button" class="btn btn-outline-secondary active" id="btnFilterAll" onclick="filterOrdersByDate('all')">Semua Pesanan</button>
-                            <button type="button" class="btn btn-outline-secondary" id="btnFilterToday" onclick="filterOrdersByDate('today')">📅 Acara Hari Ini</button>
-                            <button type="button" class="btn btn-outline-secondary" id="btnFilterTomorrow" onclick="filterOrdersByDate('tomorrow')">📅 Acara Besok</button>
+                    <div class="d-flex flex-wrap gap-2 align-items-center w-100-mobile">
+                        <div class="btn-group btn-group-sm flex-wrap mr-1 mb-1" role="group">
+                            <button type="button" class="btn btn-outline-secondary active" id="btnFilterAll" onclick="filterOrdersByDate('all')">Semua</button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnFilterToday" onclick="filterOrdersByDate('today')">📅 Hari Ini</button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnFilterTomorrow" onclick="filterOrdersByDate('tomorrow')">📅 Besok</button>
                         </div>
-                        <button class="btn btn-sm btn-success mr-1" onclick="exportOrdersToCSV()" title="Download Rekap CSV">
-                            <i class="fa fa-file-excel mr-1"></i> Export CSV
-                        </button>
-                        <button class="btn btn-sm btn-outline-secondary" onclick="loadOrders()">
-                            <i class="fa fa-sync-alt mr-1"></i> Refresh
-                        </button>
+                        <div class="d-flex gap-1 mb-1">
+                            <button class="btn btn-sm btn-success" onclick="exportOrdersToCSV()" title="Download Rekap CSV">
+                                <i class="fa fa-file-excel mr-1"></i> Export CSV
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="loadOrders()">
+                                <i class="fa fa-sync-alt mr-1"></i> Refresh
+                            </button>
+                        </div>
                     </div>
                 </div>
 
