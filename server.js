@@ -65,7 +65,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static frontend files and uploads
-app.use(express.static(__dirname));
+app.use(express.static(__dirname, { extensions: ['html'] }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Multer memory storage for image processing with Sharp
@@ -839,13 +839,23 @@ app.put('/api/settings', authenticateAdmin, async (req, res) => {
     }
 });
 
-// Fallback Route to Serve index.html
+// Fallback Route for HTML Pages & Static Navigation
 app.get('*', (req, res) => {
-    if (!req.path.startsWith('/api')) {
-        res.sendFile(path.join(__dirname, 'index.html'));
-    } else {
-        res.status(404).json({ success: false, message: 'API Endpoint tidak ditemukan.' });
+    if (req.path.startsWith('/api')) {
+        return res.status(404).json({ success: false, message: 'API Endpoint tidak ditemukan.' });
     }
+
+    const requestedFile = path.join(__dirname, req.path);
+    if (fs.existsSync(requestedFile) && fs.statSync(requestedFile).isFile()) {
+        return res.sendFile(requestedFile);
+    }
+
+    const htmlFileWithExt = requestedFile + '.html';
+    if (fs.existsSync(htmlFileWithExt) && fs.statSync(htmlFileWithExt).isFile()) {
+        return res.sendFile(htmlFileWithExt);
+    }
+
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 const { runMigrations } = require('./scripts/migrate');
