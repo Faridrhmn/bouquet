@@ -8,7 +8,7 @@ const poolConfig = {
     user: process.env.PGUSER || 'patrick',
 };
 
-if (process.env.PGHOST && process.env.PGHOST !== 'localhost' && process.env.PGHOST !== '127.0.0.1') {
+if (process.env.PGHOST) {
     poolConfig.host = process.env.PGHOST;
 } else if (fs.existsSync('/var/run/postgresql')) {
     poolConfig.host = '/var/run/postgresql';
