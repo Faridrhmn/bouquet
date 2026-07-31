@@ -8762,8 +8762,9 @@ html, body {
     max-width: 100vw;
 }
 
-/* 2. Hide burger menu (.colorlib-nav-toggle) when modal is open */
-body.modal-open .colorlib-nav-toggle {
+/* 2. Hide burger menu (.colorlib-nav-toggle) and mobile header bar when modal is open */
+body.modal-open .colorlib-nav-toggle,
+body.modal-open .mobile-header-bar {
     display: none !important;
     opacity: 0 !important;
     visibility: hidden !important;
@@ -8788,31 +8789,301 @@ body.offcanvas .floating-wa-btn,
     z-index: 1050 !important;
 }
 
-/* 5. Mobile Responsive Enhancements */
-@media (max-width: 767.98px) {
-    .modal-dialog {
-        margin: 10px auto;
-        padding: 0 5px;
+/* 5. Mobile Sticky Top Header Bar (< 992px) */
+@media (max-width: 991.98px) {
+    .mobile-header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        background: #ffffff;
+        padding: 0 12px 0 54px; /* Left space reserved for hamburger button */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        z-index: 1020;
+        border-bottom: 1px solid #eaeaea;
     }
-    .modal-content {
-        border-radius: 10px;
+
+    .colorlib-nav-toggle {
+        top: 3px !important;
+        left: -4px !important;
+        z-index: 1030 !important;
     }
-    .modal-body {
-        padding: 15px !important;
+
+    .mobile-header-brand {
+        display: flex;
+        align-items: center;
     }
-    .category-filter {
-        padding: 0 5px;
+
+    .mobile-logo-img {
+        width: 32px;
+        height: 32px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .mobile-logo-text {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 15px;
+        color: #2c2c2c;
+        letter-spacing: 0.2px;
+    }
+
+    .mobile-header-actions {
+        display: flex;
+        align-items: center;
         gap: 6px;
     }
-    .filter-btn {
-        padding: 6px 14px;
-        font-size: 13px;
+
+    .mobile-header-btn {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        line-height: 1.2;
     }
-    .author-info {
-        padding: 20px 15px !important;
+
+    .mobile-header-btn.btn-track {
+        background: #f7f1e7;
+        color: #a5742a !important;
+        border: 1px solid #e2d2b8;
     }
-    .bouquet-img-wrapper {
-        height: 230px !important;
+
+    .mobile-header-btn.btn-wa {
+        background: #25D366;
+        color: #ffffff !important;
+        box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+    }
+
+    #colorlib-main {
+        padding-top: 56px;
+    }
+
+    body.offcanvas .mobile-header-bar {
+        box-shadow: none;
     }
 }
+
+/* Hide mobile header on large screens */
+@media (min-width: 992px) {
+    .mobile-header-bar {
+        display: none !important;
+    }
+}
+
+/* 6. Category Filter Scroll Mask & Container */
+.category-filter-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+@media (max-width: 767.98px) {
+    .category-filter-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 12px;
+        width: 36px;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.95));
+        pointer-events: none;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    .category-filter {
+        display: flex !important;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        padding: 4px 15px 12px 5px !important;
+        margin-bottom: 20px !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .category-filter::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* 7. Enhanced Add-on Label & Touch Targets */
+.addon-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13.5px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: #fdfbf7;
+    border: 1px solid #eae2d3;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-height: 44px; /* Touch target standard */
+    font-weight: 500;
+}
+
+.addon-checkbox-label:hover,
+.addon-checkbox-label:has(input:checked) {
+    background: #fcf4e6;
+    border-color: #a5742a;
+    color: #a5742a;
+}
+
+.addon-checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #a5742a;
+    cursor: pointer;
+}
+
+/* 8. Sticky Modal Summary Footer for Mobile */
+.price-summary-sticky {
+    position: sticky;
+    bottom: -15px;
+    background: #ffffff;
+    padding: 14px 16px;
+    margin: 15px -15px -15px -15px !important;
+    border-top: 2px solid #f0e6d2;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* 9. General Mobile Responsive Enhancements */
+@media (max-width: 767.98px) {
+    .hero-wrap .author-image,
+    .hero-wrap .home-slider,
+    .hero-wrap .slider-item {
+        height: 220px !important;
+        min-height: 220px !important;
+    }
+
+    .hero-wrap .d-flex.js-fullheight {
+        height: auto !important;
+    }
+
+    .author-info {
+        padding: 22px 16px 18px !important;
+        background: #ffffff;
+    }
+
+    .author-info .subheading {
+        font-size: 11.5px;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: #a5742a;
+        font-weight: 600;
+        margin-bottom: 4px;
+        display: block;
+    }
+
+    .author-info h1.mb-3 {
+        font-size: 24px !important;
+        line-height: 1.25;
+        margin-bottom: 10px !important;
+        color: #2c2c2c;
+    }
+
+    .author-info p.mb-4 {
+        font-size: 13.5px;
+        line-height: 1.5;
+        margin-bottom: 16px !important;
+        color: #555555;
+    }
+
+    .btn-hero-cta {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-right: 0;
+        margin-bottom: 8px;
+        padding: 12px 20px;
+        font-size: 14px;
+        box-shadow: 0 4px 12px rgba(165,116,42,0.25);
+    }
+
+    .btn-hero-outline {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 11px 20px;
+        font-size: 14px;
+    }
+
+    .author-info .big-letter {
+        display: none !important;
+    }
+
+    .modal-dialog {
+        margin: 10px auto;
+        padding: 0 6px;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .modal-body {
+        padding: 16px 14px !important;
+    }
+
+    .bouquet-img-wrapper {
+        height: 220px !important;
+    }
+
+    .bouquet-content {
+        padding: 14px 12px !important;
+    }
+
+    .bouquet-title {
+        font-size: 14.5px;
+    }
+
+    .bouquet-price {
+        font-size: 16.5px;
+        margin-bottom: 10px;
+    }
+
+    .bouquet-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .btn-order-now {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 13.5px;
+        min-height: 44px;
+    }
+
+    .btn-preview {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 13px;
+        min-height: 40px;
+    }
+
+    .floating-wa-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        bottom: 16px;
+        right: 16px;
+    }
+}
+
 

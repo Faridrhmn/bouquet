@@ -16,8 +16,10 @@ if (process.env.PGHOST) {
     poolConfig.host = 'localhost';
 }
 
-if (process.env.PGPASSWORD) {
+if (typeof process.env.PGPASSWORD === 'string' && process.env.PGPASSWORD !== '') {
     poolConfig.password = process.env.PGPASSWORD;
+} else if (process.env.PGPASSWORD === '') {
+    poolConfig.password = '';
 }
 
 if (process.env.PGPORT) {

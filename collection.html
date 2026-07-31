@@ -313,6 +313,20 @@
 
 <body>
 
+    <!-- Mobile Sticky Top Header Bar -->
+    <div class="mobile-header-bar">
+        <div class="mobile-header-brand">
+            <a href="index.html" class="d-flex align-items-center text-decoration-none">
+                <img src="images/logo.png" alt="Dzakirah Logo" class="mobile-logo-img mr-2">
+                <span class="mobile-logo-text">Dzakirah Bouquet</span>
+            </a>
+        </div>
+        <div class="mobile-header-actions">
+            <a href="#" onclick="$('#trackOrderModal').modal('show'); return false;" class="mobile-header-btn btn-track" title="Track Order">🔍 Track</a>
+            <a href="https://wa.me/6282135621780?text=Halo%20Dzakirah%20Bouquet,%20saya%20ingin%20konsultasi%20pesanan" target="_blank" class="mobile-header-btn btn-wa" title="Chat WhatsApp">📲 WA</a>
+        </div>
+    </div>
+
     <div id="colorlib-page">
         <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle"><i></i></a>
         <aside id="colorlib-aside" role="complementary" class="js-fullheight text-center">
@@ -346,12 +360,14 @@
 
             <section class="ftco-section-3 pt-3">
                 <div class="container">
-                    <!-- Point C: Category Filter Tabs -->
-                    <div class="category-filter">
-                        <button class="filter-btn active" data-filter="all">Semua Koleksi</button>
-                        <button class="filter-btn" data-filter="artificial">🌸 Bunga Artificial</button>
-                        <button class="filter-btn" data-filter="snack-money">🍫 Snack & Uang</button>
-                        <button class="filter-btn" data-filter="graduation">🎓 Wisuda & Boneka</button>
+                    <!-- Point C: Category Filter Tabs with Scroll Mask -->
+                    <div class="category-filter-wrapper">
+                        <div class="category-filter">
+                            <button class="filter-btn active" data-filter="all">Semua Koleksi</button>
+                            <button class="filter-btn" data-filter="artificial">🌸 Bunga Artificial</button>
+                            <button class="filter-btn" data-filter="snack-money">🍫 Snack & Uang</button>
+                            <button class="filter-btn" data-filter="graduation">🎓 Wisuda & Boneka</button>
+                        </div>
                     </div>
 
                     <!-- Point B & D: Dynamic Product Grid -->
@@ -499,15 +515,17 @@
                             </div>
                         </div>
 
-                        <!-- Summary & Submit -->
-                        <div class="price-summary-box">
-                            <div>Total Estimasi Pesanan:</div>
-                            <span class="total-amount" id="totalPriceDisplay">Rp 0</span>
-                        </div>
+                        <!-- Summary & Submit (Sticky Footer for Mobile & Desktop) -->
+                        <div class="price-summary-sticky">
+                            <div class="price-summary-box mt-0">
+                                <div>Total Estimasi Pesanan:</div>
+                                <span class="total-amount" id="totalPriceDisplay">Rp 0</span>
+                            </div>
 
-                        <button type="submit" class="btn btn-block mt-3" style="background: #a5742a; color: #fff; font-weight: 700; font-size: 16px; padding: 12px; border-radius: 6px; box-shadow: 0 4px 12px rgba(165,116,42,0.3);">
-                            📲 Kirim Pesanan via WhatsApp
-                        </button>
+                            <button type="submit" class="btn btn-block mt-2" style="background: #a5742a; color: #fff; font-weight: 700; font-size: 16px; padding: 12px; border-radius: 6px; box-shadow: 0 4px 12px rgba(165,116,42,0.3);">
+                                📲 Kirim Pesanan via WhatsApp
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -699,6 +717,28 @@
                             </form>
                         </div>
 
+                        <!-- Customer Action Section (Cancel & Edit Self-Service / WA Helper) -->
+                        <div id="orderActionSection" class="card p-3 border-0 shadow-sm mt-3 bg-white">
+                            <h6 class="font-weight-bold text-dark mb-2">⚙️ Kelola Pesanan (Revisi / Pembatalan)</h6>
+                            <div id="pendingActionButtons" class="d-none">
+                                <p class="text-muted small mb-2">Status pesanan Anda masih <strong>Pending</strong>. Anda dapat mengedit detail pesanan atau membatalkan secara mandiri.</p>
+                                <div class="d-flex flex-wrap">
+                                    <button class="btn btn-sm btn-outline-warning text-dark font-weight-bold mr-2 mb-2" onclick="openEditOrderModal()">✏️ Edit Detail Pesanan</button>
+                                    <button class="btn btn-sm btn-outline-danger font-weight-bold mb-2" onclick="confirmCancelOrder()">❌ Batalkan Pesanan Mandiri</button>
+                                </div>
+                            </div>
+                            <div id="inProgressActionButtons" class="d-none">
+                                <p class="text-muted small mb-2">Pesanan Anda sedang <strong>diproses / selesai</strong>. Untuk revisi data atau kendala pesanan, silakan langsung hubungi Admin via WhatsApp.</p>
+                                <div class="d-flex flex-wrap">
+                                    <button class="btn btn-sm btn-success font-weight-bold mr-2 mb-2" onclick="contactAdminWA('revisi')">💬 Chat Admin untuk Revisi (WA)</button>
+                                    <button class="btn btn-sm btn-outline-secondary font-weight-bold mb-2" onclick="contactAdminWA('batal')">💬 Chat Admin untuk Pembatalan (WA)</button>
+                                </div>
+                            </div>
+                            <div id="cancelledAlert" class="alert alert-danger p-2 mb-0 d-none text-center font-weight-bold small">
+                                ⛔ Pesanan ini telah DIBATALKAN.
+                            </div>
+                        </div>
+
                         <!-- Invoice Print Button -->
                         <div class="text-right mt-3">
                             <button class="btn btn-outline-secondary btn-sm" onclick="printOrderInvoice()"><i class="fa fa-print"></i> Cetak Struk / Invoice</button>
@@ -710,6 +750,62 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL: EDIT ORDER MANDIRI -->
+    <div class="modal fade" id="editOrderModal" tabindex="-1" role="dialog" style="z-index: 1060;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 14px;">
+                <div class="modal-header bg-warning text-dark font-weight-bold">
+                    <h5 class="modal-title font-weight-bold">✏️ Edit Detail Pesanan</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="editOrderForm">
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold small">Tanggal Digunakan / Acara:</label>
+                            <input type="date" id="editUseDate" class="form-control" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold small">Warna Wrapping Kertas:</label>
+                            <select id="editWrapColor" class="form-control">
+                                <option value="Pink Soft">Pink Soft</option>
+                                <option value="Black Gold">Black Gold</option>
+                                <option value="White Elegant">White Elegant</option>
+                                <option value="Lilac Purple">Lilac Purple</option>
+                                <option value="Navy Blue">Navy Blue</option>
+                                <option value="Sage Green">Sage Green</option>
+                            </select>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col">
+                                <label class="font-weight-bold small">Kartu Ucapan - Untuk:</label>
+                                <input type="text" id="editCardTo" class="form-control" placeholder="Contoh: Sarah">
+                            </div>
+                            <div class="col">
+                                <label class="font-weight-bold small">Kartu Ucapan - Dari:</label>
+                                <input type="text" id="editCardFrom" class="form-control" placeholder="Contoh: Rizky">
+                            </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold small">Pesan Ucapan:</label>
+                            <textarea id="editCardMessage" class="form-control" rows="3" placeholder="Tuliskan ucapan selamat..."></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold small text-danger">Verifikasi No. WA Pemesan:</label>
+                            <input type="text" id="editVerifyPhone" class="form-control" placeholder="08123456789" required>
+                            <small class="form-text text-muted">Masukkan nomor WA yang digunakan saat membuat pesanan ini.</small>
+                        </div>
+                        <div id="editOrderMsg" class="small mb-3"></div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary btn-sm font-weight-bold">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- MODAL: PRODUCT REVIEWS (UGC) -->
     <div class="modal fade" id="reviewsModal" tabindex="-1" role="dialog">
@@ -865,6 +961,17 @@
             }
         }
 
+        // Helper to escape HTML characters (XSS Prevention)
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         // Render Product Cards Dynamically
         function renderProducts(filterCategory = "all") {
             const grid = document.getElementById("productGrid");
@@ -890,25 +997,25 @@
                 col.innerHTML = `
                     <div class="bouquet-card">
                         <div class="bouquet-img-wrapper">
-                            <span class="bouquet-badge">${p.badge}</span>
-                            <img src="${p.image}" alt="${p.name}">
+                            <span class="bouquet-badge">${escapeHTML(p.badge)}</span>
+                            <img src="${p.image}" alt="${escapeHTML(p.name)}" onerror="this.onerror=null;this.src='images/Cover.jpg';">
                         </div>
                         <div class="bouquet-content">
                             <div>
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     ${stockBadge}
-                                    <button class="btn btn-sm btn-link p-0 text-warning text-decoration-none" onclick="openReviewsModal(${p.id}, '${p.name.replace(/'/g, "\\'")}')" style="font-size: 12px; font-weight: 600;">
+                                    <button class="btn btn-sm btn-link p-0 text-warning text-decoration-none" onclick="openReviewsModal(${p.id}, '${escapeHTML(p.name).replace(/'/g, "\\'")}')" style="font-size: 12px; font-weight: 600;">
                                         ⭐ Ulasan (UGC)
                                     </button>
                                 </div>
-                                <h3 class="bouquet-title">${p.name}</h3>
+                                <h3 class="bouquet-title">${escapeHTML(p.name)}</h3>
                                 <div class="bouquet-price">${formatRp(p.price)}</div>
                             </div>
                             <div class="bouquet-actions">
                                 <button class="btn-order-now" ${isOutOfStock ? 'disabled style="opacity: 0.6; cursor: not-allowed;"' : `onclick="openOrderModal(${p.id})"`}>
                                     <span class="icon-whatsapp"></span> ${isOutOfStock ? 'Stok Habis' : 'Pesan ini'}
                                 </button>
-                                <a href="${p.image}" class="btn-preview image-popup" title="Lihat Foto ${p.name}">
+                                <a href="${p.image}" class="btn-preview image-popup" title="Lihat Foto ${escapeHTML(p.name)}">
                                     🔍 Foto
                                 </a>
                             </div>
@@ -994,10 +1101,10 @@
                     listContainer.innerHTML = json.data.map(r => `
                         <div class="p-3 bg-white border rounded mb-2 shadow-sm">
                             <div class="d-flex justify-content-between align-items-center mb-1">
-                                <strong class="text-dark small">${r.customer_name}</strong>
+                                <strong class="text-dark small">${escapeHTML(r.customer_name)}</strong>
                                 <span class="text-warning small">${'⭐'.repeat(r.rating)}</span>
                             </div>
-                            <p class="mb-1 text-muted" style="font-size: 13px;">"${r.comment || ''}"</p>
+                            <p class="mb-1 text-muted" style="font-size: 13px;">"${escapeHTML(r.comment || '')}"</p>
                             ${r.photo_url ? `<img src="${r.photo_url}" alt="Foto Pembeli" class="img-fluid rounded mt-1" style="max-height: 120px; object-fit: cover;">` : ''}
                             <div class="text-muted mt-1" style="font-size: 10px;">${new Date(r.created_at).toLocaleDateString('id-ID')}</div>
                         </div>
@@ -1112,6 +1219,26 @@
                     bankBox.classList.add("d-none");
                 }
 
+                // Customer Action Buttons Display (Pending vs Diproses vs Batal)
+                const pendingBtns = document.getElementById("pendingActionButtons");
+                const inProgressBtns = document.getElementById("inProgressActionButtons");
+                const cancelledAlert = document.getElementById("cancelledAlert");
+
+                if (pendingBtns && inProgressBtns && cancelledAlert) {
+                    pendingBtns.classList.add("d-none");
+                    inProgressBtns.classList.add("d-none");
+                    cancelledAlert.classList.add("d-none");
+
+                    if (o.status === 'Pending') {
+                        pendingBtns.classList.remove("d-none");
+                    } else if (o.status === 'Diproses' || o.status === 'Selesai') {
+                        inProgressBtns.classList.remove("d-none");
+                    } else if (o.status === 'Batal') {
+                        cancelledAlert.classList.remove("d-none");
+                        document.getElementById("trackStatusBadge").className = "badge badge-pill badge-danger px-3 py-2";
+                    }
+                }
+
             } catch (err) {
                 console.error("Gagal melacak pesanan:", err);
                 errorBox.textContent = "Terjadi kesalahan server saat melacak pesanan.";
@@ -1119,6 +1246,128 @@
                 resultBox.classList.add("d-none");
             }
         }
+
+        // Open Edit Order Modal with populated values
+        function openEditOrderModal() {
+            if (!currentTrackedOrder) return;
+            const o = currentTrackedOrder;
+            
+            if (o.use_date) {
+                const d = new Date(o.use_date);
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                document.getElementById("editUseDate").value = `${year}-${month}-${day}`;
+            }
+
+            if (o.wrap_color) document.getElementById("editWrapColor").value = o.wrap_color;
+            document.getElementById("editCardTo").value = o.card_to || '';
+            document.getElementById("editCardFrom").value = o.card_from || '';
+            document.getElementById("editCardMessage").value = o.card_message || '';
+            document.getElementById("editVerifyPhone").value = o.customer_phone || '';
+            document.getElementById("editOrderMsg").innerHTML = '';
+
+            $('#editOrderModal').modal('show');
+        }
+
+        // Submit Order Edit Form
+        document.getElementById("editOrderForm")?.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            if (!currentTrackedOrder) return;
+
+            const msgBox = document.getElementById("editOrderMsg");
+            msgBox.className = "small mb-3 text-info";
+            msgBox.textContent = "Menyimpan perubahan pesanan...";
+
+            const payload = {
+                phone: document.getElementById("editVerifyPhone").value.trim(),
+                use_date: document.getElementById("editUseDate").value,
+                wrap_color: document.getElementById("editWrapColor").value,
+                card_to: document.getElementById("editCardTo").value.trim(),
+                card_from: document.getElementById("editCardFrom").value.trim(),
+                card_message: document.getElementById("editCardMessage").value.trim()
+            };
+
+            try {
+                const res = await fetch(`/api/orders/${currentTrackedOrder.order_code}/edit`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const json = await res.json();
+
+                if (!json.success) {
+                    msgBox.className = "small mb-3 text-danger font-weight-bold";
+                    msgBox.textContent = json.message || "Gagal memperbarui pesanan.";
+                    return;
+                }
+
+                msgBox.className = "small mb-3 text-success font-weight-bold";
+                msgBox.textContent = "Pesanan berhasil diperbarui!";
+
+                setTimeout(() => {
+                    $('#editOrderModal').modal('hide');
+                    executeOrderTracking();
+                }, 1000);
+
+            } catch (err) {
+                console.error("Error edit order:", err);
+                msgBox.className = "small mb-3 text-danger font-weight-bold";
+                msgBox.textContent = "Terjadi kesalahan koneksi server.";
+            }
+        });
+
+        // Self-Service Cancel Order
+        async function confirmCancelOrder() {
+            if (!currentTrackedOrder) return;
+            const o = currentTrackedOrder;
+
+            const inputPhone = prompt(`⚠️ Apakah Anda yakin ingin MEMBATALKAN pesanan ${o.order_code}?\n\nUntuk konfirmasi pembatalan, silakan ketik nomor WA Anda:`, o.customer_phone || "");
+            if (inputPhone === null) return;
+
+            if (!inputPhone.trim()) {
+                alert("Nomor WA wajib diisi untuk memverifikasi pembatalan.");
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/orders/${o.order_code}/cancel`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ phone: inputPhone.trim() })
+                });
+                const json = await res.json();
+
+                if (!json.success) {
+                    alert("Gagal membatalkan pesanan: " + json.message);
+                    return;
+                }
+
+                alert("✅ Pesanan Anda berhasil dibatalkan.");
+                executeOrderTracking();
+            } catch (err) {
+                console.error("Error cancel order:", err);
+                alert("Terjadi kesalahan server saat membatalkan pesanan.");
+            }
+        }
+
+        // WhatsApp Helper Contact
+        function contactAdminWA(actionType) {
+            if (!currentTrackedOrder) return;
+            const o = currentTrackedOrder;
+            const adminPhone = "6281234567890";
+
+            let text = "";
+            if (actionType === 'revisi') {
+                text = `Halo Admin Dzakirah Bouquet, saya mau revisi data pesanan Kode: *#${o.order_code}* (a.n ${o.customer_name}).\n\nDetail Revisi yang saya inginkan: `;
+            } else {
+                text = `Halo Admin Dzakirah Bouquet, saya ingin membatalkan pesanan Kode: *#${o.order_code}* (a.n ${o.customer_name}).\n\nAlasan Pembatalan: `;
+            }
+
+            const waUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(text)}`;
+            window.open(waUrl, '_blank');
+        }
+
 
         // Print Order Invoice
         function printOrderInvoice() {
@@ -1286,6 +1535,11 @@
                 }
                 checkSameDayWarning();
                 useDateInput.addEventListener("change", checkSameDayWarning);
+            }
+
+            const editUseDateInput = document.getElementById("editUseDate");
+            if (editUseDateInput) {
+                editUseDateInput.min = todayStr;
             }
 
             fetchProductsFromAPI();

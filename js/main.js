@@ -94,9 +94,24 @@
 		$('.js-colorlib-nav-toggle').removeClass('active');
 	});
 
+	// Fix Bootstrap 4 Multiple Modal Stacking & Scroll Lock Bug
 	$(document).on('show.bs.modal', '.modal', function () {
 		$('body').removeClass('offcanvas');
 		$('.js-colorlib-nav-toggle').removeClass('active');
+
+		var openModals = $('.modal.show').length;
+		var zIndex = 1050 + (10 * openModals);
+		$(this).css('z-index', zIndex);
+		setTimeout(function() {
+			$('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+		}, 0);
+	});
+
+	$(document).on('hidden.bs.modal', '.modal', function () {
+		// If there are still open modals on screen, re-apply modal-open to body so scrolling parent modal works!
+		if ($('.modal:visible').length > 0) {
+			$('body').addClass('modal-open');
+		}
 	});
 
 	var carousel = function() {

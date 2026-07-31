@@ -39,8 +39,10 @@ if (process.env.PGHOST) {
     poolConfig.host = 'localhost';
 }
 
-if (process.env.PGPASSWORD) {
+if (typeof process.env.PGPASSWORD === 'string' && process.env.PGPASSWORD !== '') {
     poolConfig.password = process.env.PGPASSWORD;
+} else if (process.env.PGPASSWORD === '') {
+    poolConfig.password = '';
 }
 
 if (process.env.PGPORT) {
@@ -58,6 +60,18 @@ pool.connect((err, client, release) => {
         release();
     }
 });
+
+// Helper to normalize phone numbers (e.g. +62812... or 62812... to 0812...)
+function normalizePhone(p) {
+    if (!p) return '';
+    let digits = String(p).replace(/\D/g, '');
+    if (digits.startsWith('62')) {
+        digits = '0' + digits.slice(2);
+    } else if (digits.length > 0 && !digits.startsWith('0')) {
+        digits = '0' + digits;
+    }
+    return digits;
+}
 
 // Middleware
 app.use(cors());
@@ -522,6 +536,122 @@ app.post('/api/orders/:orderCode/upload-proof', upload.single('proof'), async (r
         res.status(500).json({ success: false, message: 'Gagal mengunggah bukti pembayaran.' });
     }
 });
+
+// PUT Cancel Order (Public Customer Action for Pending Orders)
+app.put('/api/orders/:orderCode/cancel', async (req, res) => {
+    const { orderCode } = req.params;
+    const { phone } = req.body;
+    try {
+        const orderRes = await pool.query('SELECT * FROM orders WHERE order_code = $1', [orderCode.toUpperCase()]);
+        if (orderRes.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Kode pesanan tidak ditemukan.' });
+        }
+        const order = orderRes.rows[0];
+
+        if (phone) {
+            const cleanInputPhone = normalizePhone(phone);
+            const cleanDbPhone = normalizePhone(order.customer_phone);
+            if (cleanInputPhone && cleanDbPhone && cleanInputPhone !== cleanDbPhone && !cleanDbPhone.endsWith(cleanInputPhone) && !cleanInputPhone.endsWith(cleanDbPhone)) {
+                return res.status(400).json({ success: false, message: 'Nomor HP tidak cocok dengan data pemesan.' });
+            }
+        }
+
+        if (order.status === 'Batal') {
+            return res.status(400).json({ success: false, message: 'Pesanan ini sudah dibatalkan sebelumnya.' });
+        }
+
+        if (order.status !== 'Pending') {
+            return res.status(400).json({ 
+                success: false, 
+                message: `Pesanan berstatus "${order.status}" tidak dapat dibatalkan secara mandiri. Silakan hubungi admin via WhatsApp.` 
+            });
+        }
+
+        const updated = await pool.query(
+            `UPDATE orders SET status = 'Batal' WHERE order_code = $1 RETURNING *`,
+            [orderCode.toUpperCase()]
+        );
+
+        res.json({
+            success: true,
+            message: 'Pesanan berhasil dibatalkan.',
+            data: updated.rows[0]
+        });
+    } catch (err) {
+        console.error('Error Cancel Order:', err);
+        res.status(500).json({ success: false, message: 'Gagal membatalkan pesanan.' });
+    }
+});
+
+// PUT Edit Order (Public Customer Action for Pending Orders)
+app.put('/api/orders/:orderCode/edit', async (req, res) => {
+    const { orderCode } = req.params;
+    const {
+        phone,
+        use_date,
+        wrap_color,
+        card_to,
+        card_from,
+        card_message,
+        shipping_method
+    } = req.body;
+
+    try {
+        const orderRes = await pool.query('SELECT * FROM orders WHERE order_code = $1', [orderCode.toUpperCase()]);
+        if (orderRes.rows.length === 0) {
+            return res.status(404).json({ success: false, message: 'Kode pesanan tidak ditemukan.' });
+        }
+        const order = orderRes.rows[0];
+
+        if (phone) {
+            const cleanInputPhone = normalizePhone(phone);
+            const cleanDbPhone = normalizePhone(order.customer_phone);
+            if (cleanInputPhone && cleanDbPhone && cleanInputPhone !== cleanDbPhone && !cleanDbPhone.endsWith(cleanInputPhone) && !cleanInputPhone.endsWith(cleanDbPhone)) {
+                return res.status(400).json({ success: false, message: 'Nomor HP tidak cocok dengan data pemesan.' });
+            }
+        }
+
+        if (order.status !== 'Pending') {
+            return res.status(400).json({ 
+                success: false, 
+                message: `Pesanan berstatus "${order.status}" tidak dapat diedit secara mandiri. Silakan hubungi admin via WhatsApp untuk revisi.` 
+            });
+        }
+
+        const query = `
+            UPDATE orders
+            SET use_date = COALESCE($1, use_date),
+                wrap_color = COALESCE($2, wrap_color),
+                card_to = COALESCE($3, card_to),
+                card_from = COALESCE($4, card_from),
+                card_message = COALESCE($5, card_message),
+                shipping_method = COALESCE($6, shipping_method)
+            WHERE order_code = $7
+            RETURNING *
+        `;
+        const values = [
+            use_date || order.use_date,
+            wrap_color || order.wrap_color,
+            card_to !== undefined ? card_to : order.card_to,
+            card_from !== undefined ? card_from : order.card_from,
+            card_message !== undefined ? card_message : order.card_message,
+            shipping_method || order.shipping_method,
+            orderCode.toUpperCase()
+        ];
+
+        const result = await pool.query(query, values);
+
+        res.json({
+            success: true,
+            message: 'Detail pesanan berhasil diperbarui!',
+            data: result.rows[0]
+        });
+    } catch (err) {
+        console.error('Error Edit Order:', err);
+        res.status(500).json({ success: false, message: 'Gagal memperbarui pesanan.' });
+    }
+});
+
 
 // POST Upload Completion Photo (Admin Only)
 app.post('/api/orders/:id/upload-completion', authenticateAdmin, upload.single('completion'), async (req, res) => {
