@@ -308,6 +308,115 @@
                 text-align: center;
             }
         }
+
+        /* Order Wizard Styles */
+        .wizard-progress-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            position: relative;
+        }
+        .wizard-step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            width: 30%;
+            text-align: center;
+        }
+        .wizard-step-indicator .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid #dee2e6;
+        }
+        .wizard-step-indicator.active .step-num {
+            background: #a5742a;
+            color: #fff;
+            border-color: #a5742a;
+            box-shadow: 0 4px 12px rgba(165,116,42,0.35);
+        }
+        .wizard-step-indicator.completed .step-num {
+            background: #28a745;
+            color: #fff;
+            border-color: #28a745;
+        }
+        .wizard-step-indicator .step-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6c757d;
+            line-height: 1.2;
+        }
+        .wizard-step-indicator.active .step-label {
+            color: #a5742a;
+            font-weight: 700;
+        }
+        .wizard-step-line {
+            flex-grow: 1;
+            height: 3px;
+            background: #e9ecef;
+            margin: 0 4px 18px;
+            transition: background 0.3s ease;
+        }
+        .wizard-step-line.active {
+            background: #a5742a;
+        }
+
+        /* Radio Options */
+        .option-radio-label {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+            background: #fff;
+        }
+        .option-radio-label:hover {
+            border-color: #a5742a;
+            background: #fdfbf7;
+        }
+        .option-radio-label input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #a5742a;
+        }
+
+        /* Card rating badge in catalog */
+        .card-rating-btn {
+            background: #fff8ee;
+            border: 1px solid #f1ddba;
+            color: #b37d26;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+        .card-rating-btn:hover {
+            background: #a5742a;
+            color: #fff;
+            border-color: #a5742a;
+        }
     </style>
 </head>
 
@@ -391,158 +500,357 @@
         <span class="icon-whatsapp"></span>
     </a>
 
-    <!-- Point A: Comprehensive Bouquet Order Modal -->
-    <div id="orderModal" class="modal fade" role="dialog" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header modal-header-bouquet">
-                    <h4 class="modal-title">💐 Form Pemesanan Buket Custom</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <!-- MODAL 1: PRODUCT DETAIL & UGC REVIEWS (EPIC 2) -->
+    <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header text-white" style="background: linear-gradient(135deg, #a5742a 0%, #8b5f20 100%);">
+                    <h5 class="modal-title font-weight-bold" style="color: #fff !important;" id="detailModalTitle">Detail Buket</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body p-4">
-                    <form id="orderForm">
-                        <!-- 1. Pilihan Produk -->
-                        <div class="form-section-title">1. Produk Yang Dipilih</div>
-                        <div class="form-group mb-3">
-                            <label for="productSelect" style="font-weight: 600;">Pilih Produk Buket:</label>
-                            <select class="form-control" id="productSelect" name="product" required style="border-radius: 6px;">
-                                <!-- Options populated by JS -->
-                            </select>
+                    <div class="row">
+                        <div class="col-md-5 mb-3 text-center">
+                            <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); background: #fafafa;">
+                                <img id="detailModalImg" src="images/Cover.jpg" alt="Detail Buket" class="img-fluid" style="width: 100%; height: 310px; object-fit: cover;">
+                            </div>
+                            <div class="d-flex justify-content-center mt-2" id="detailGalleryThumbs" style="gap: 8px;">
+                                <img src="images/Cover8.jpg" class="rounded border p-1" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('detailModalImg').src=this.src;">
+                                <img src="images/Cover3.jpg" class="rounded border p-1" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('detailModalImg').src=this.src;">
+                                <img src="images/Cover2.jpg" class="rounded border p-1" style="width: 50px; height: 50px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('detailModalImg').src=this.src;">
+                            </div>
                         </div>
+                        <div class="col-md-7 mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-pill badge-warning px-3 py-1 font-weight-bold" id="detailModalBadge" style="background:#f4ede1; color:#a5742a;">Ready Stock</span>
+                                <div class="text-warning small font-weight-bold" id="detailModalRating">⭐⭐⭐⭐⭐ 4.9 (18 ulasan)</div>
+                            </div>
+                            <h4 class="font-weight-bold text-dark mb-1" id="detailModalName">Artificial Rose Bouquet</h4>
+                            <div class="h3 font-weight-bold mb-3" style="color: #a5742a;" id="detailModalPrice">Rp 55.000</div>
+                            
+                            <div class="p-3 bg-light rounded mb-3 small" style="border-left: 3px solid #a5742a;">
+                                <div class="mb-1"><strong>📐 Dimensi:</strong> <span id="detailModalSize">Tinggi ±40cm, Lebar ±25cm (Ukuran Medium)</span></div>
+                                <div class="mb-1"><strong>🌸 Material:</strong> <span id="detailModalMaterial">Bunga artificial satin anti layu + kertas cellophane premium</span></div>
+                                <div class="mb-1"><strong>⏱️ Slot Pengerjaan:</strong> <span id="detailModalTime">Bisa Sameday (Ready Stock) / Custom H-1</span></div>
+                                <div><strong>🎁 Kelengkapan:</strong> Gratis kartu ucapan custom & pita warna senada</div>
+                            </div>
 
-                        <!-- 2. Data Pemesan -->
-                        <div class="form-section-title">2. Data Pemesan</div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="customerName" style="font-weight: 600;">Nama Pemesan <span class="text-danger">*</span>:</label>
-                                <input type="text" class="form-control" id="customerName" name="name" placeholder="Contoh: Annisa Rizky" required style="border-radius: 6px;">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="customerPhone" style="font-weight: 600;">No. WhatsApp <span class="text-danger">*</span>:</label>
-                                <input type="tel" class="form-control" id="customerPhone" name="phone" placeholder="Contoh: 081234567890" required style="border-radius: 6px;">
+                            <p class="text-muted small mb-3" id="detailModalDesc">
+                                Rangkaian buket bunga istimewa yang dibuat secara rapi dengan perpaduan warna lembut. Sangat cocok untuk kado wisuda, sidang skripsi, atau ulang tahun orang tersayang.
+                            </p>
+
+                            <div class="d-flex" style="gap: 10px;">
+                                <button type="button" class="btn text-white font-weight-bold flex-grow-1 py-2" id="detailModalOrderBtn" style="background: #a5742a; border-radius: 8px;">
+                                    💐 Pesan Buket Ini
+                                </button>
+                                <button type="button" class="btn btn-outline-success font-weight-bold py-2 px-3" id="detailModalWaBtn" style="border-radius: 8px;">
+                                    💬 Tanya via WA
+                                </button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="useDate" style="font-weight: 600;">Tanggal Pakai / Acara <span class="text-danger">*</span>:</label>
-                                <input type="date" class="form-control" id="useDate" name="tanggal" required style="border-radius: 6px;">
-                                <div id="sameDayWarning" class="alert alert-warning p-2 mt-2 d-none mb-0" style="font-size: 12px; border-radius: 6px; line-height: 1.3;">
-                                    ⚠️ <strong>Info Pemesanan Mendadak (H-0 / H-1):</strong><br>Pastikan langsung konfirmasi slot pengerjaan via WhatsApp ya kak!
+                    </div>
+
+                    <!-- Tabs: Keunggulan & UGC Reviews -->
+                    <div class="mt-3 border-top pt-3">
+                        <ul class="nav nav-pills mb-3" id="detailModalTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active font-weight-bold small py-2 px-3" id="tab-specs-link" data-toggle="pill" href="#tab-specs">Keunggulan & Kustomisasi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link font-weight-bold small py-2 px-3" id="tab-reviews-link" data-toggle="pill" href="#tab-reviews">Ulasan Pembeli (Foto Nyata)</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active small text-muted" id="tab-specs">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="mb-1">✅ <strong>Warna Wrapping Bebas Request:</strong> Pink Soft, Rustic Brown, Black Gold, Navy, Lilac, Putih.</p>
+                                        <p class="mb-1">✅ <strong>Tahan Lama:</strong> Bunga tidak perlu disiram air dan tidak akan layu selamanya.</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-1">✅ <strong>Pengiriman Aman:</strong> Packing kardus tebal untuk ekspedisi luar kota.</p>
+                                        <p class="mb-1">✅ <strong>Bisa Tambah Foto / LED:</strong> Tersedia opsi add-on cetak foto 4R & lampu fairy light.</p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label for="shippingMethod" style="font-weight: 600;">Metode Pengiriman / Pengambilan:</label>
-                                <select class="form-control" id="shippingMethod" name="shipping" style="border-radius: 6px;">
-                                    <option value="COD / Pick Up Yogyakarta">COD / Ambil di Tempat (Gedangsari / DIY)</option>
-                                    <option value="Kirim Ekspedisi (Luar Kota)">Kirim via Ekspedisi (Luar Kota)</option>
+                            <div class="tab-pane fade" id="tab-reviews">
+                                <div id="detailReviewsContainer" class="py-2">
+                                    <div class="text-center text-muted small py-3">Memuat ulasan pembeli...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: 3-STEP WIZARD BOUQUET ORDER MODAL (EPIC 3) -->
+    <div id="orderModal" class="modal fade" role="dialog" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 14px; overflow: hidden;">
+                <div class="modal-header modal-header-bouquet">
+                    <h4 class="modal-title font-weight-bold" style="color: #fff !important;">💐 Pemesanan Buket Dzakirah (3 Langkah Mudah)</h4>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4">
+                    
+                    <!-- Progress Bar Wizard -->
+                    <div class="wizard-progress-bar">
+                        <div class="wizard-step-indicator active" id="wizardInd1" onclick="goToOrderStep(1)">
+                            <span class="step-num">1</span>
+                            <span class="step-label">Buket & Jadwal</span>
+                        </div>
+                        <div class="wizard-step-line" id="wizardLine1"></div>
+                        <div class="wizard-step-indicator" id="wizardInd2" onclick="goToOrderStep(2)">
+                            <span class="step-num">2</span>
+                            <span class="step-label">Data & Kirim</span>
+                        </div>
+                        <div class="wizard-step-line" id="wizardLine2"></div>
+                        <div class="wizard-step-indicator" id="wizardInd3" onclick="goToOrderStep(3)">
+                            <span class="step-num">3</span>
+                            <span class="step-label">Kartu Ucapan</span>
+                        </div>
+                    </div>
+
+                    <form id="orderForm">
+                        
+                        <!-- STEP 1: PILIHAN PRODUK & JADWAL -->
+                        <div id="orderStep1" class="wizard-step-pane">
+                            <div class="form-section-title mb-2">Langkah 1 dari 3: Pilih Buket & Tanggal Penggunaan</div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="productSelect" style="font-weight: 600;">Pilih Desain Buket:</label>
+                                <select class="form-control form-control-lg" id="productSelect" name="product" required style="border-radius: 8px; font-weight: 600; color: #333;">
+                                    <!-- Options populated by JS -->
                                 </select>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="useDate" style="font-weight: 600;">Tanggal Pemakaian / Acara <span class="text-danger">*</span>:</label>
+                                    <input type="date" class="form-control" id="useDate" name="tanggal" required style="border-radius: 8px;">
+                                    <small class="text-muted mt-1 d-block">Tentukan tanggal saat buket ingin diambil atau dipakai.</small>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="useTime" style="font-weight: 600;">Jam Diambil / Dikirim (Opsional):</label>
+                                    <input type="text" class="form-control" id="useTime" name="jam" placeholder="Contoh: Pagi jam 08.00 / Siang jam 13.00" style="border-radius: 8px;">
+                                </div>
+                            </div>
+
+                            <div id="sameDayWarning" class="alert alert-warning p-3 mt-2 d-none mb-3" style="font-size: 13px; border-radius: 8px; line-height: 1.4;">
+                                ⚠️ <strong>Pemesanan Mendadak (H-0 / H-1):</strong><br>
+                                Kami akan prioritaskan slot pengerjaan Anda. Harap segera konfirmasi via WhatsApp setelah submit ya kak!
+                            </div>
+
+                            <div class="text-right mt-4 border-top pt-3">
+                                <button type="button" class="btn text-white font-weight-bold px-4 py-2" onclick="goToOrderStep(2)" style="background: #a5742a; border-radius: 8px;">
+                                    Lanjut ke Data Pengiriman &rarr;
+                                </button>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 form-group">
-                                <label for="paymentMethod" style="font-weight: 600;">Metode Pembayaran:</label>
-                                <select class="form-control" id="paymentMethod" name="paymentMethod" style="border-radius: 6px; background: #fff8ee; border-color: #e6c894; font-weight: 600;">
-                                    <option value="QRIS">📱 QRIS Instan (Scan All e-Wallet & M-Banking)</option>
-                                    <option value="Transfer Bank BCA">🏦 Transfer Bank BCA</option>
-                                    <option value="Transfer Bank Mandiri">🏦 Transfer Bank Mandiri</option>
-                                    <option value="Transfer Bank BRI">🏦 Transfer Bank BRI</option>
-                                    <option value="Transfer Bank BNI">🏦 Transfer Bank BNI</option>
-                                    <option value="COD / Ambil di Tempat">💵 Bayar Tunai (COD / Saat Ambil)</option>
-                                    <option value="WhatsApp / Manual">📲 Chat & Konsultasi via WhatsApp</option>
+
+                        <!-- STEP 2: DATA PEMESAN & PENGIRIMAN -->
+                        <div id="orderStep2" class="wizard-step-pane d-none">
+                            <div class="form-section-title mb-2">Langkah 2 dari 3: Data Pemesan & Metode Pembayaran</div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="customerName" style="font-weight: 600;">Nama Lengkap Pemesan <span class="text-danger">*</span>:</label>
+                                    <input type="text" class="form-control" id="customerName" name="name" placeholder="Contoh: Annisa Rizky" required style="border-radius: 8px;">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="customerPhone" style="font-weight: 600;">No. WhatsApp Pemesan <span class="text-danger">*</span>:</label>
+                                    <input type="tel" class="form-control" id="customerPhone" name="phone" placeholder="Contoh: 081234567890" required style="border-radius: 8px;">
+                                    <small class="text-muted">Kode pesanan & konfirmasi akan dikirimkan ke nomor ini.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label style="font-weight: 600;">Metode Pengambilan / Pengiriman:</label>
+                                <label class="option-radio-label">
+                                    <input type="radio" name="shippingRadio" value="COD / Ambil di Tempat" checked onchange="document.getElementById('shippingMethod').value=this.value;">
+                                    <div>
+                                        <strong>🛵 COD / Ambil Sendiri di Workshop (Gratis)</strong>
+                                        <div class="small text-muted">Ambil di workshop Gedangsari atau COD area Yogyakarta (sesuai kesepakatan).</div>
+                                    </div>
+                                </label>
+                                <label class="option-radio-label">
+                                    <input type="radio" name="shippingRadio" value="Kurir Instan (GoSend/GrabExpress)" onchange="document.getElementById('shippingMethod').value=this.value;">
+                                    <div>
+                                        <strong>🚚 Kirim via Kurir Instan (GoSend / GrabExpress)</strong>
+                                        <div class="small text-muted">Dikirim langsung ke alamat rumah/kos/kampus di hari acara (ongkir bayar ke driver).</div>
+                                    </div>
+                                </label>
+                                <label class="option-radio-label">
+                                    <input type="radio" name="shippingRadio" value="Kirim Ekspedisi Luar Kota" onchange="document.getElementById('shippingMethod').value=this.value;">
+                                    <div>
+                                        <strong>📦 Kirim via Ekspedisi (Luar Kota Jogja)</strong>
+                                        <div class="small text-muted">Menggunakan kardus tebal khusus buket agar tetap aman sampai tujuan.</div>
+                                    </div>
+                                </label>
+                                <input type="hidden" id="shippingMethod" name="shipping" value="COD / Ambil di Tempat">
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label style="font-weight: 600;">Pilihan Metode Pembayaran:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="option-radio-label">
+                                            <input type="radio" name="paymentRadio" value="COD / Ambil di Tempat" checked onchange="document.getElementById('paymentMethod').value=this.value;">
+                                            <div>
+                                                <strong>💵 Bayar Tunai (COD)</strong>
+                                                <div class="small text-muted">Bayar tunai pas saat ambil buket di lokasi.</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="option-radio-label">
+                                            <input type="radio" name="paymentRadio" value="QRIS" onchange="document.getElementById('paymentMethod').value=this.value;">
+                                            <div>
+                                                <strong>📱 QRIS Instan</strong>
+                                                <div class="small text-muted">Scan all e-wallet (GoPay, Dana, OVO, ShopeePay).</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="option-radio-label">
+                                            <input type="radio" name="paymentRadio" value="Transfer Bank BCA" onchange="document.getElementById('paymentMethod').value=this.value;">
+                                            <div>
+                                                <strong>🏦 Transfer Bank (BCA / Mandiri / BRI / BNI)</strong>
+                                                <div class="small text-muted">Transfer manual rekening bank resmi toko Dzakirah.</div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="paymentMethod" name="paymentMethod" value="COD / Ambil di Tempat">
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4 border-top pt-3">
+                                <button type="button" class="btn btn-outline-secondary font-weight-bold px-3 py-2" onclick="goToOrderStep(1)" style="border-radius: 8px;">
+                                    &larr; Kembali ke Buket
+                                </button>
+                                <button type="button" class="btn text-white font-weight-bold px-4 py-2" onclick="goToOrderStep(3)" style="background: #a5742a; border-radius: 8px;">
+                                    Lanjut ke Kartu Ucapan &rarr;
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: CUSTOM WARNA, KARTU UCAPAN & ADD-ONS -->
+                        <div id="orderStep3" class="wizard-step-pane d-none">
+                            <div class="form-section-title mb-2">Langkah 3 dari 3: Personalisasi Kartu Ucapan & Add-on</div>
+                            
+                            <div class="form-group mb-3">
+                                <label for="wrapColor" style="font-weight: 600;">Pilihan Warna Kain Wrapping:</label>
+                                <select class="form-control" id="wrapColor" name="wrapColor" style="border-radius: 8px;">
+                                    <option value="Pink Soft">Pink Soft / Merah Muda (Favorit Cewek)</option>
+                                    <option value="Rustic / Brown Paper">Rustic / Brown Vintage (Elegan Klasik)</option>
+                                    <option value="Black Gold">Black Gold / Hitam Emas (Mewah Modern)</option>
+                                    <option value="Navy Blue">Navy Blue / Biru Dongker (Cocok Cowok/Wisuda)</option>
+                                    <option value="White Clean">White Clean / Putih Bersih (Minimalis)</option>
+                                    <option value="Lilac / Purple">Lilac / Ungu Pastel (Manis Kekinian)</option>
+                                    <option value="Bebas / Sesuaikan Foto">Bebas / Sesuaikan Foto Katalog Produk</option>
+                                    <option value="Request Chat WA">Request Warna Khusus via Chat WA</option>
                                 </select>
                             </div>
-                        </div>
 
-                        <!-- 3. Custom Tema & Kartu Ucapan Gratis -->
-                        <div class="form-section-title">3. Custom Tema & Kartu Ucapan Gratis</div>
-                        <div class="form-group mb-3">
-                            <label for="wrapColor" style="font-weight: 600;">Pilihan Warna Kain Wrapping:</label>
-                            <select class="form-control" id="wrapColor" name="wrapColor" style="border-radius: 6px;">
-                                <option value="Pink Soft">Pink Soft / Merah Muda</option>
-                                <option value="Rustic / Brown Paper">Rustic / Brown Vintage</option>
-                                <option value="Black Gold">Black Gold / Hitam Elegan</option>
-                                <option value="Navy Blue">Navy Blue / Biru Dongker</option>
-                                <option value="White Clean">White Clean / Putih</option>
-                                <option value="Lilac / Purple">Lilac / Ungu Soft</option>
-                                <option value="Bebas / Sesuaikan Foto">Bebas / Sesuaikan Foto Produk</option>
-                                <option value="Request Chat WA">Request Warna Lain via Chat WA</option>
-                            </select>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="cardTo" style="font-weight: 600;">Untuk Siapa (To):</label>
-                                <input type="text" class="form-control" id="cardTo" name="cardTo" placeholder="Contoh: Sarah, S.Ked" style="border-radius: 6px;">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="cardFrom" style="font-weight: 600;">Dari Siapa (From):</label>
-                                <input type="text" class="form-control" id="cardFrom" name="cardFrom" placeholder="Contoh: Sahabat-sahabatmu" style="border-radius: 6px;">
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="templateSelect" style="font-weight: 600; font-size: 13px; color: #a5742a;">💡 Rekomendasi Template Ucapan Cepat:</label>
-                            <select class="form-control form-control-sm mb-2" id="templateSelect" onchange="applyCardTemplate(this.value)" style="border-radius: 6px; background: #fdfbf7; border-color: #e6d3a7; color: #555;">
-                                <option value="">-- Klik untuk memilih contoh kata-kata ucapan --</option>
-                                <option value="wisuda">🎓 Ucapan Wisuda / Kelulusan</option>
-                                <option value="ultah">🎂 Ucapan Ulang Tahun</option>
-                                <option value="romantis">❤️ Ucapan Romantis / Anniv</option>
-                                <option value="semangat">🌟 Ucapan Semangat & Support</option>
-                            </select>
-                            <label for="cardMessage" style="font-weight: 600;">Pesan Kartu Ucapan:</label>
-                            <textarea class="form-control" id="cardMessage" name="cardMessage" rows="2" placeholder="Tuliskan ucapan Anda di sini atau pilih template di atas..." style="border-radius: 6px;"></textarea>
-                        </div>
-
-                        <!-- 4. Add-on Tambahan -->
-                        <div class="form-section-title">4. Tambahan Add-on (Opsional)</div>
-                        <div class="row px-3">
-                            <div class="col-md-4">
-                                <label class="addon-checkbox-label">
-                                    <input type="checkbox" class="addon-checkbox" value="5000" data-name="Cetak Foto 4R (+Rp 5.000)">
-                                    📸 Cetak Foto (+Rp 5rb)
-                                </label>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="addon-checkbox-label">
-                                    <input type="checkbox" class="addon-checkbox" value="10000" data-name="Lampu LED Tumblr (+Rp 10.000)">
-                                    💡 Lampu LED (+Rp 10rb)
-                                </label>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="addon-checkbox-label">
-                                    <input type="checkbox" class="addon-checkbox" value="3000" data-name="Pita Satin Premium (+Rp 3.000)">
-                                    🎀 Pita Satin (+Rp 3rb)
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Summary & Submit (Sticky Footer for Mobile & Desktop) -->
-                        <div class="price-summary-sticky">
-                            <div class="price-summary-box mt-0">
-                                <div>Total Estimasi Pesanan:</div>
-                                <span class="total-amount" id="totalPriceDisplay">Rp 0</span>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="cardTo" style="font-weight: 600;">Untuk Siapa (To):</label>
+                                    <input type="text" class="form-control" id="cardTo" name="cardTo" placeholder="Contoh: Sarah, S.Ked" style="border-radius: 8px;">
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="cardFrom" style="font-weight: 600;">Dari Siapa (From):</label>
+                                    <input type="text" class="form-control" id="cardFrom" name="cardFrom" placeholder="Contoh: Sahabat-sahabatmu" style="border-radius: 8px;">
+                                </div>
                             </div>
 
-                            <button type="submit" class="btn btn-block mt-2" style="background: #a5742a; color: #fff; font-weight: 700; font-size: 16px; padding: 12px; border-radius: 6px; box-shadow: 0 4px 12px rgba(165,116,42,0.3);">
-                                📲 Kirim Pesanan via WhatsApp
-                            </button>
+                            <div class="form-group mb-3">
+                                <label for="templateSelect" style="font-weight: 600; font-size: 13px; color: #a5742a;">💡 Rekomendasi Template Ucapan Cepat:</label>
+                                <select class="form-control form-control-sm mb-2" id="templateSelect" onchange="applyCardTemplate(this.value)" style="border-radius: 8px; background: #fdfbf7; border-color: #e6d3a7; color: #555;">
+                                    <option value="">-- Klik untuk memilih contoh kata-kata ucapan --</option>
+                                    <option value="wisuda">🎓 Ucapan Wisuda / Kelulusan</option>
+                                    <option value="ultah">🎂 Ucapan Ulang Tahun</option>
+                                    <option value="romantis">❤️ Ucapan Romantis / Anniv</option>
+                                    <option value="semangat">🌟 Ucapan Semangat & Support</option>
+                                </select>
+                                <label for="cardMessage" style="font-weight: 600;">Pesan Kartu Ucapan:</label>
+                                <textarea class="form-control" id="cardMessage" name="cardMessage" rows="2" placeholder="Tuliskan ucapan Anda di sini atau pilih template di atas..." style="border-radius: 8px;"></textarea>
+                            </div>
+
+                            <!-- Add-on Tambahan -->
+                            <div class="form-group mb-3">
+                                <label style="font-weight: 600;">Tambahan Add-on Spesial (Opsional):</label>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="addon-checkbox-label">
+                                            <input type="checkbox" class="addon-checkbox" value="5000" data-name="Cetak Foto 4R (+Rp 5.000)">
+                                            📸 Cetak Foto (+Rp 5rb)
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="addon-checkbox-label">
+                                            <input type="checkbox" class="addon-checkbox" value="10000" data-name="Lampu LED Tumblr (+Rp 10.000)">
+                                            💡 Lampu LED (+Rp 10rb)
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="addon-checkbox-label">
+                                            <input type="checkbox" class="addon-checkbox" value="3000" data-name="Pita Satin Premium (+Rp 3.000)">
+                                            🎀 Pita Satin (+Rp 3rb)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Summary & Submit -->
+                            <div class="price-summary-sticky p-3 rounded border" style="background:#faf8f5;">
+                                <div class="price-summary-box mt-0 border-0 bg-transparent p-0 mb-2">
+                                    <div class="font-weight-bold">Total Estimasi Pesanan:</div>
+                                    <span class="total-amount h4 font-weight-bold mb-0 text-success" id="totalPriceDisplay">Rp 0</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between" style="gap: 10px;">
+                                    <button type="button" class="btn btn-outline-secondary font-weight-bold px-3" onclick="goToOrderStep(2)" style="border-radius: 8px;">
+                                        &larr; Kembali
+                                    </button>
+                                    <button type="submit" class="btn flex-grow-1 font-weight-bold text-white py-2" style="background: #a5742a; border-radius: 8px; box-shadow: 0 4px 12px rgba(165,116,42,0.35);">
+                                        🎉 Konfirmasi & Buat Pesanan
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: INSTANT PAYMENT & PROOF UPLOAD -->
+    <!-- MODAL 3: CONDITIONAL INSTANT PAYMENT & PROOF UPLOAD (EPIC 4) -->
     <div class="modal fade" id="instantPaymentModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 14px; overflow: hidden;">
                 <div class="modal-header text-white" style="background: linear-gradient(135deg, #a5742a 0%, #8b5f20 100%);">
-                    <h5 class="modal-title font-weight-bold" style="color: #fff !important;">🎉 Pesanan Dibuat & Instruksi Pembayaran</h5>
+                    <h5 class="modal-title font-weight-bold" style="color: #fff !important;">🎉 Pesanan Berhasil Dibuat!</h5>
                     <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body p-4 text-center">
                     <div class="badge badge-success px-3 py-2 mb-2" style="font-size: 14px;">Kode Order: <span id="payModalOrderCode">DZK-XXXX</span></div>
-                    <h4 class="font-weight-bold text-success mb-3" id="payModalTotalPrice">Rp 0</h4>
+                    <h3 class="font-weight-bold text-success mb-3" id="payModalTotalPrice">Rp 0</h3>
+
+                    <!-- COD DISPLAY (PISAH DARI TRANSFER - EPIC 4) -->
+                    <div id="payModalCodBox" class="alert alert-warning p-3 text-left small mb-3 d-none" style="border-left: 4px solid #a5742a; background: #fffbf5;">
+                        <h6 class="font-weight-bold text-dark mb-1">🛵 Pembayaran COD / Ambil di Lokasi Toko:</h6>
+                        <p class="mb-2 text-dark">
+                            Pesanan Anda telah tercatat dengan sistem <strong>Bayar di Tempat (COD)</strong>. Anda <strong>TIDAK PERLU</strong> mentransfer atau mengunggah bukti bayar sekarang.
+                        </p>
+                        <div class="p-2 bg-white rounded border mb-2">
+                            <strong>📍 Titik Ambil Workshop:</strong> Gedangsari, Gunungkidul, D.I. Yogyakarta (atau COD area Jogja).<br>
+                            <em>Silakan siapkan uang tunai pas saat pengambilan/COD.</em>
+                        </div>
+                        <p class="small text-muted mb-0">Klik tombol hijau di bawah ini untuk mengirim rincian booking Anda ke WhatsApp Admin.</p>
+                    </div>
 
                     <!-- QRIS DISPLAY -->
                     <div id="payModalQrisBox" class="p-3 bg-light rounded border mb-3 d-none">
@@ -554,7 +862,7 @@
 
                     <!-- MULTI-BANK DISPLAY -->
                     <div id="payModalBankBox" class="p-3 bg-light rounded border mb-3 text-left d-none">
-                        <h6 class="font-weight-bold text-dark mb-2">🏦 Transfer Rekening Bank Toko</h6>
+                        <h6 class="font-weight-bold text-dark mb-2">🏦 Transfer Rekening Bank Resmi Toko</h6>
                         
                         <!-- Bank BCA -->
                         <div class="p-2 bg-white rounded border d-flex justify-content-between align-items-center mb-2">
@@ -597,14 +905,8 @@
                         </div>
                     </div>
 
-                    <!-- COD DISPLAY -->
-                    <div id="payModalCodBox" class="alert alert-info p-3 text-left small mb-3 d-none">
-                        <strong>💵 Pembayaran COD / Pick Up:</strong><br>
-                        Silakan lakukan pembayaran tunai saat mengambil buket di lokasi atau saat COD.
-                    </div>
-
-                    <!-- UPLOAD PROOF FORM IN MODAL -->
-                    <form id="instantProofForm" class="text-left border-top pt-3">
+                    <!-- UPLOAD PROOF FORM IN MODAL (HANYA MUNCUL JIKA TRANSFER / QRIS) -->
+                    <form id="instantProofForm" class="text-left border-top pt-3 d-none">
                         <label class="font-weight-bold small text-dark">Unggah Bukti Transfer / Pembayaran Sekarang:</label>
                         <div class="input-group mb-2">
                             <input type="file" id="instantProofFileInput" class="form-control-file border p-1 rounded bg-white" accept="image/*" required>
@@ -615,9 +917,16 @@
                         <div id="instantProofMsg" class="small mt-2 text-center"></div>
                     </form>
 
-                    <!-- ACTION BUTTONS -->
-                    <div class="mt-3">
-                        <button type="button" class="btn btn-outline-secondary btn-block" onclick="openWaWithCurrentOrder()" style="border-radius: 8px;">
+                    <!-- ACTION BUTTONS: COD EXCLUSIVE CTA -->
+                    <div id="payModalCodActionBtn" class="mt-2 d-none">
+                        <button type="button" class="btn btn-success btn-block font-weight-bold py-3" onclick="openWaWithCurrentOrder()" style="border-radius: 8px; font-size: 15px;">
+                            📲 Konfirmasi Booking via WhatsApp Cepat &rarr;
+                        </button>
+                    </div>
+
+                    <!-- ACTION BUTTONS: GENERAL WA -->
+                    <div id="payModalGeneralWaBtn" class="mt-2 d-none">
+                        <button type="button" class="btn btn-outline-secondary btn-block font-weight-bold py-2" onclick="openWaWithCurrentOrder()" style="border-radius: 8px;">
                             📲 Lanjut Chat WhatsApp
                         </button>
                     </div>
@@ -949,11 +1258,26 @@
                         id: p.id,
                         name: p.name,
                         category: p.category_slug,
+                        category_name: p.category_name,
                         price: p.price,
                         image: p.image_url,
-                        badge: p.badge || 'Ready Stock'
+                        badge: p.badge || 'Ready Stock',
+                        stock_quantity: p.stock_quantity !== undefined ? p.stock_quantity : 10,
+                        description: p.description,
+                        avg_rating: p.avg_rating,
+                        total_reviews: p.total_reviews
                     }));
-                    renderProducts("all");
+
+                    // Check URL parameter for default filter (e.g. from homepage occasion explorer)
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const catParam = urlParams.get("category") || "all";
+                    
+                    // Activate corresponding filter tab
+                    document.querySelectorAll(".filter-btn").forEach(btn => {
+                        btn.classList.toggle("active", btn.getAttribute("data-filter") === catParam);
+                    });
+
+                    renderProducts(catParam);
                     populateProductDropdown();
                 }
             } catch (err) {
@@ -992,46 +1316,195 @@
                 const isOutOfStock = p.stock_quantity !== undefined && p.stock_quantity <= 0;
                 const stockBadge = isOutOfStock
                     ? `<span class="badge badge-danger px-2 py-1">Stok Habis</span>`
-                    : `<span class="badge badge-success px-2 py-1">Stok: ${p.stock_quantity !== undefined ? p.stock_quantity : 10}</span>`;
+                    : `<span class="badge badge-success px-2 py-1">Stok: ${p.stock_quantity}</span>`;
+                
+                const ratingBadge = `
+                    <button class="card-rating-btn" onclick="openReviewsModal(${p.id}, '${escapeHTML(p.name).replace(/'/g, "\\'")}')" title="Klik untuk lihat ulasan pembeli">
+                        ⭐ ${p.avg_rating || '5.0'} (${p.total_reviews || 0})
+                    </button>
+                `;
 
                 col.innerHTML = `
                     <div class="bouquet-card">
                         <div class="bouquet-img-wrapper">
                             <span class="bouquet-badge">${escapeHTML(p.badge)}</span>
-                            <img src="${p.image}" alt="${escapeHTML(p.name)}" onerror="this.onerror=null;this.src='images/Cover.jpg';">
+                            <img src="${p.image}" alt="${escapeHTML(p.name)}" style="cursor: pointer;" onclick="openProductDetail(${p.id})" onerror="this.onerror=null;this.src='images/Cover.jpg';" title="Klik untuk melihat detail & spesifikasi">
                         </div>
                         <div class="bouquet-content">
                             <div>
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     ${stockBadge}
-                                    <button class="btn btn-sm btn-link p-0 text-warning text-decoration-none" onclick="openReviewsModal(${p.id}, '${escapeHTML(p.name).replace(/'/g, "\\'")}')" style="font-size: 12px; font-weight: 600;">
-                                        ⭐ Ulasan (UGC)
-                                    </button>
+                                    ${ratingBadge}
                                 </div>
-                                <h3 class="bouquet-title">${escapeHTML(p.name)}</h3>
+                                <h3 class="bouquet-title" style="cursor: pointer;" onclick="openProductDetail(${p.id})">${escapeHTML(p.name)}</h3>
                                 <div class="bouquet-price">${formatRp(p.price)}</div>
                             </div>
                             <div class="bouquet-actions">
                                 <button class="btn-order-now" ${isOutOfStock ? 'disabled style="opacity: 0.6; cursor: not-allowed;"' : `onclick="openOrderModal(${p.id})"`}>
-                                    <span class="icon-whatsapp"></span> ${isOutOfStock ? 'Stok Habis' : 'Pesan ini'}
+                                    💐 ${isOutOfStock ? 'Habis' : 'Pesan'}
                                 </button>
-                                <a href="${p.image}" class="btn-preview image-popup" title="Lihat Foto ${escapeHTML(p.name)}">
-                                    🔍 Foto
-                                </a>
+                                <button class="btn-preview font-weight-bold" onclick="openProductDetail(${p.id})" title="Lihat Detail & Foto ${escapeHTML(p.name)}">
+                                    🔍 Detail
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
                 grid.appendChild(col);
             });
+        }
 
-            // Re-bind magnific popup for preview photos
-            if ($.fn.magnificPopup) {
-                $('.image-popup').magnificPopup({
-                    type: 'image',
-                    gallery: { enabled: true }
-                });
+        // Open Product Detail Modal (Epic 2)
+        async function openProductDetail(productId) {
+            const p = products.find(x => x.id === Number(productId));
+            if (!p) return;
+
+            document.getElementById("detailModalTitle").textContent = `Detail: ${p.name}`;
+            document.getElementById("detailModalName").textContent = p.name;
+            document.getElementById("detailModalPrice").textContent = formatRp(p.price);
+            document.getElementById("detailModalBadge").textContent = p.badge || 'Ready Stock';
+            document.getElementById("detailModalImg").src = p.image || 'images/Cover.jpg';
+            
+            const ratingStr = p.avg_rating ? `⭐⭐⭐⭐⭐ ${p.avg_rating} (${p.total_reviews || 0} ulasan)` : '⭐⭐⭐⭐⭐ 5.0 (Baru)';
+            document.getElementById("detailModalRating").textContent = ratingStr;
+
+            // Dimensions based on name
+            let sizeText = "Tinggi ±40cm, Lebar ±25cm (Ukuran Medium)";
+            if (p.name.includes("(XS)") || p.name.includes("Mini")) {
+                sizeText = "Tinggi ±25cm, Lebar ±15cm (Ukuran Mini / Hemat)";
+            } else if (p.name.includes("(L)") || p.name.includes("Jumbo")) {
+                sizeText = "Tinggi ±55cm, Lebar ±35cm (Ukuran Jumbo / Wisuda Box)";
             }
+            document.getElementById("detailModalSize").textContent = sizeText;
+
+            // Material
+            let matText = "Bunga mawar satin & artificial silk premium (anti layu)";
+            if (p.category === "snack-money" || p.name.toLowerCase().includes("snack")) {
+                matText = "Snack lezat & kemasan higienis + bunga artificial pelengkap";
+            } else if (p.category === "graduation" || p.name.toLowerCase().includes("wisuda")) {
+                matText = "Boneka wisuda toga + bunga satin & mawar artificial premium";
+            }
+            document.getElementById("detailModalMaterial").textContent = matText;
+
+            if (p.description) {
+                document.getElementById("detailModalDesc").textContent = p.description;
+            } else {
+                document.getElementById("detailModalDesc").textContent = `Buket ${p.name} dirangkai secara teliti oleh florist Dzakirah dengan sentuhan warna harmonis dan elegan. Menggunakan wrapping cellophane premium waterproof serta pita satin halus. Sangat direkomendasikan untuk kado wisuda, sidang skripsi, atau kado ulang tahun.`;
+            }
+
+            // Direct Order Button from detail modal
+            document.getElementById("detailModalOrderBtn").onclick = function() {
+                $('#productDetailModal').modal('hide');
+                openOrderModal(p.id);
+            };
+
+            // WA consultation button from detail modal
+            document.getElementById("detailModalWaBtn").onclick = function() {
+                const text = `Halo Kak Dzakirah! 🌸 Saya tertarik dengan buket "${p.name}" (${formatRp(p.price)}). Apakah slot pengerjaan masih tersedia?`;
+                window.open(`https://wa.me/6282135621780?text=${encodeURIComponent(text)}`, "_blank");
+            };
+
+            // Load UGC reviews for this product
+            loadDetailReviews(p.id);
+
+            $('#productDetailModal').modal('show');
+        }
+
+        // Load Reviews inside Product Detail Modal
+        async function loadDetailReviews(productId) {
+            const box = document.getElementById("detailReviewsContainer");
+            box.innerHTML = '<div class="text-center text-muted small py-3"><span class="spinner-border spinner-border-sm"></span> Memuat ulasan pembeli...</div>';
+            try {
+                const res = await fetch(`/api/products/${productId}/reviews`);
+                const json = await res.json();
+                if (json.success && json.data && json.data.length > 0) {
+                    let html = '<div class="row">';
+                    json.data.forEach(r => {
+                        const stars = '⭐'.repeat(r.rating || 5);
+                        const photoHtml = r.photo_url 
+                            ? `<div class="mt-2"><img src="${r.photo_url}" class="img-fluid rounded border" style="max-height: 120px; object-fit: cover;"></div>` 
+                            : '';
+                        html += `
+                            <div class="col-md-6 mb-3">
+                                <div class="p-3 bg-light rounded border h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <strong class="text-dark small">${escapeHTML(r.customer_name)}</strong>
+                                        <span class="text-warning small">${stars}</span>
+                                    </div>
+                                    <p class="small text-muted mb-1" style="line-height: 1.5;">"${escapeHTML(r.comment)}"</p>
+                                    ${photoHtml}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    box.innerHTML = html;
+                } else {
+                    box.innerHTML = `
+                        <div class="text-center text-muted py-3">
+                            <p class="small mb-2">Belum ada ulasan dengan foto untuk buket ini.</p>
+                            <button class="btn btn-sm btn-outline-warning text-dark font-weight-bold" onclick="$('#productDetailModal').modal('hide'); openReviewsModal(${productId}, '');">
+                                ✍️ Jadilah Yang Pertama Memberi Ulasan!
+                            </button>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                box.innerHTML = '<div class="text-center text-danger small py-2">Gagal memuat ulasan.</div>';
+            }
+        }
+
+        // Multi-Step Wizard Navigation (Epic 3)
+        let currentOrderStep = 1;
+        function goToOrderStep(step) {
+            if (step === 2) {
+                const prod = document.getElementById("productSelect").value;
+                const date = document.getElementById("useDate").value;
+                if (!prod) {
+                    alert("Harap pilih desain buket terlebih dahulu!");
+                    return;
+                }
+                if (!date) {
+                    alert("Harap tentukan tanggal pemakaian buket!");
+                    document.getElementById("useDate").focus();
+                    return;
+                }
+            } else if (step === 3) {
+                const name = document.getElementById("customerName").value.trim();
+                const phone = document.getElementById("customerPhone").value.trim();
+                if (!name) {
+                    alert("Harap isi nama lengkap pemesan!");
+                    document.getElementById("customerName").focus();
+                    return;
+                }
+                if (!phone || phone.length < 8) {
+                    alert("Harap masukkan nomor WhatsApp aktif yang valid!");
+                    document.getElementById("customerPhone").focus();
+                    return;
+                }
+            }
+
+            currentOrderStep = step;
+
+            document.getElementById("orderStep1").classList.toggle("d-none", step !== 1);
+            document.getElementById("orderStep2").classList.toggle("d-none", step !== 2);
+            document.getElementById("orderStep3").classList.toggle("d-none", step !== 3);
+
+            for (let i = 1; i <= 3; i++) {
+                const ind = document.getElementById(`wizardInd${i}`);
+                if (ind) {
+                    ind.classList.remove("active", "completed");
+                    if (i < step) {
+                        ind.classList.add("completed");
+                    } else if (i === step) {
+                        ind.classList.add("active");
+                    }
+                }
+            }
+            if (document.getElementById("wizardLine1")) document.getElementById("wizardLine1").classList.toggle("active", step >= 2);
+            if (document.getElementById("wizardLine2")) document.getElementById("wizardLine2").classList.toggle("active", step >= 3);
+
+            updateTotalPrice();
         }
 
         // Populate Modal Dropdown
@@ -1052,6 +1525,7 @@
             if (productId) {
                 document.getElementById("productSelect").value = productId;
             }
+            goToOrderStep(1); // Reset to Step 1
             updateTotalPrice();
             $('#orderModal').modal('show');
         }
@@ -1617,51 +2091,62 @@
 
                 $('#orderModal').modal('hide');
 
-                // Format WhatsApp Text
-                let waText = `*Halo Dzakirah Bouquet!* 💐\n` +
-                             `Saya telah memesan *${selectedProduct ? selectedProduct.name : 'Custom Bouquet'}*.\n\n` +
-                             `📋 *DETAIL PESANAN:*\n` +
-                             `• Kode Order    : ${createdOrderCode || 'DZK-OFFLINE'}\n` +
-                             `• Nama Pemesan  : ${name}\n` +
-                             `• No. WhatsApp  : ${phone}\n` +
-                             `• Tanggal Pakai  : ${date}\n` +
-                             `• Pengiriman    : ${shipping}\n` +
-                             `• Pembayaran    : ${paymentMethod}\n\n` +
-                             `🎨 *CUSTOM BUKET:*\n` +
-                             `• Warna Wrap    : ${wrapColor}\n` +
-                             `• Add-on        : ${selectedAddons.length > 0 ? selectedAddons.join(', ') : 'Tidak Ada'}\n\n`;
+                // Format WhatsApp Text (Friendly & Human-Centric - Epic 7)
+                let waText = `Halo Kak Admin Dzakirah Bouquet! 🌸✨\n\n` +
+                             `Saya ingin mengonfirmasi pesanan buket dari website:\n` +
+                             `📌 *Kode Pesanan: ${createdOrderCode || 'DZK-OFFLINE'}*\n` +
+                             `💐 *Produk: ${selectedProduct ? selectedProduct.name : 'Custom Bouquet'}*\n` +
+                             `📅 *Tanggal Dipakai: ${date}* (${shipping})\n` +
+                             `💵 *Total Estimasi: ${formatRp(totalPrice)}* (Metode: ${paymentMethod})\n\n` +
+                             `🎨 *Detail Custom:*\n` +
+                             `• Warna Wrap : ${wrapColor}\n` +
+                             `• Add-ons    : ${selectedAddons.length > 0 ? selectedAddons.join(', ') : 'Tidak Ada'}\n`;
 
                 if (cardTo || cardFrom || cardMessage) {
-                    waText += `💌 *KARTU UCAPAN GRATIS:*\n` +
-                              (cardTo ? `• Untuk  : ${cardTo}\n` : '') +
-                              (cardFrom ? `• Dari   : ${cardFrom}\n` : '') +
-                              (cardMessage ? `• Pesan  : "${cardMessage}"\n\n` : '\n');
+                    waText += `💌 *Kartu Ucapan:*\n` +
+                              (cardTo ? `  Untuk: ${cardTo}\n` : '') +
+                              (cardFrom ? `  Dari : ${cardFrom}\n` : '') +
+                              (cardMessage ? `  Pesan: "${cardMessage}"\n` : '');
                 }
 
-                waText += `💰 *TOTAL ESTIMASI: ${formatRp(totalPrice)}*\n\n` +
-                          `Apakah pesanan ini dapat diproses? Terima kasih! 😊`;
+                waText += `\nMohon konfirmasi ketersediaan slot pengerjaannya ya kak. Terima kasih banyak! 🙏💕`;
 
                 window.lastWaUrl = `https://wa.me/6282135621780?text=${encodeURIComponent(waText)}`;
                 window.lastOrderCode = createdOrderCode;
 
-                // Show Instant Payment Modal
+                // Show Instant Payment Modal with Clean Conditional Logic (Epic 4)
                 document.getElementById("payModalOrderCode").textContent = createdOrderCode || 'DZK-PESANAN';
                 document.getElementById("payModalTotalPrice").textContent = formatRp(totalPrice);
 
                 const qrisBox = document.getElementById("payModalQrisBox");
                 const bankBox = document.getElementById("payModalBankBox");
                 const codBox = document.getElementById("payModalCodBox");
+                const proofForm = document.getElementById("instantProofForm");
+                const codActionBtn = document.getElementById("payModalCodActionBtn");
+                const generalWaBtn = document.getElementById("payModalGeneralWaBtn");
 
                 qrisBox.classList.add("d-none");
                 bankBox.classList.add("d-none");
                 codBox.classList.add("d-none");
+                proofForm.classList.add("d-none");
+                if (codActionBtn) codActionBtn.classList.add("d-none");
+                if (generalWaBtn) generalWaBtn.classList.add("d-none");
 
-                if (paymentMethod === "QRIS") {
+                if (paymentMethod === "COD / Ambil di Tempat" || paymentMethod.includes("COD") || paymentMethod.includes("Tunai")) {
+                    // COD Flow: Show instructions, hide proof upload completely, show single WhatsApp confirm button
+                    codBox.classList.remove("d-none");
+                    if (codActionBtn) codActionBtn.classList.remove("d-none");
+                } else if (paymentMethod === "QRIS") {
                     qrisBox.classList.remove("d-none");
+                    proofForm.classList.remove("d-none");
+                    if (generalWaBtn) generalWaBtn.classList.remove("d-none");
                 } else if (paymentMethod.includes("Transfer") || paymentMethod.includes("Bank")) {
                     bankBox.classList.remove("d-none");
+                    proofForm.classList.remove("d-none");
+                    if (generalWaBtn) generalWaBtn.classList.remove("d-none");
                 } else {
                     codBox.classList.remove("d-none");
+                    if (codActionBtn) codActionBtn.classList.remove("d-none");
                 }
 
                 document.getElementById("instantProofMsg").innerHTML = "";

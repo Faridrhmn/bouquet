@@ -246,26 +246,38 @@ app.get('/api/categories', async (req, res) => {
 
 // GET Products List (Public or Admin)
 app.get('/api/products', async (req, res) => {
-    const { category, include_inactive } = req.query;
+    const { category, include_inactive, featured } = req.query;
     try {
-        let query = 'SELECT * FROM products';
+        let query = `
+            SELECT p.*,
+                   c.name as category_name,
+                   COALESCE(ROUND(AVG(r.rating)::numeric, 1), 5.0) as avg_rating,
+                   COUNT(r.id)::int as total_reviews
+            FROM products p
+            LEFT JOIN categories c ON p.category_slug = c.slug
+            LEFT JOIN product_reviews r ON p.id = r.product_id
+        `;
         const params = [];
         const conditions = [];
 
         if (include_inactive !== 'true') {
-            conditions.push('is_active = true');
+            conditions.push('p.is_active = true');
         }
 
         if (category && category !== 'all') {
             params.push(category);
-            conditions.push(`category_slug = $${params.length}`);
+            conditions.push(`p.category_slug = $${params.length}`);
+        }
+
+        if (featured === 'true') {
+            conditions.push(`(p.badge ILIKE '%Best%' OR p.badge ILIKE '%Favorit%' OR p.badge ILIKE '%Popular%' OR p.badge ILIKE '%Wisuda%')`);
         }
 
         if (conditions.length > 0) {
             query += ' WHERE ' + conditions.join(' AND ');
         }
 
-        query += ' ORDER BY id DESC';
+        query += ' GROUP BY p.id, c.name ORDER BY p.id DESC';
 
         const result = await pool.query(query, params);
         res.json({ success: true, data: result.rows });
@@ -278,7 +290,18 @@ app.get('/api/products', async (req, res) => {
 // GET Product Detail
 app.get('/api/products/:id', async (req, res) => {
     try {
-        const result = await pool.query('SELECT * FROM products WHERE id = $1', [req.params.id]);
+        const query = `
+            SELECT p.*,
+                   c.name as category_name,
+                   COALESCE(ROUND(AVG(r.rating)::numeric, 1), 5.0) as avg_rating,
+                   COUNT(r.id)::int as total_reviews
+            FROM products p
+            LEFT JOIN categories c ON p.category_slug = c.slug
+            LEFT JOIN product_reviews r ON p.id = r.product_id
+            WHERE p.id = $1
+            GROUP BY p.id, c.name
+        `;
+        const result = await pool.query(query, [req.params.id]);
         if (result.rows.length === 0) {
             return res.status(404).json({ success: false, message: 'Produk tidak ditemukan.' });
         }

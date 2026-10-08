@@ -2,15 +2,15 @@
 <html lang="id">
 
 <head>
-	<title>Dzakirah Bouquet - Buket Bunga, Snack & Wisuda Jogja</title>
+	<title>Dzakirah Bouquet - Toko Buket Bunga, Snack & Wisuda Elegan di Jogja</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Pesan buket custom elegan untuk wisuda, ulang tahun, dan momen spesial. Melayani COD area Yogyakarta & Pengiriman Luar Kota!">
+	<meta name="description" content="Pesan buket kado elegan untuk wisuda, sidang skripsi, ulang tahun & anniversary di Yogyakarta. Tersedia bunga artificial awet, buket snack, uang & boneka. Bisa COD!">
 	
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="Dzakirah Bouquet - Buket Bunga, Snack & Wisuda Jogja">
-	<meta property="og:description" content="Koleksi buket bunga artificial, buket snack, uang & boneka wisuda cantik. Gratis kartu ucapan!">
-	<meta property="og:image" content="https://sample-dzakirah.web.app/images/Cover8.jpg">
+	<meta property="og:description" content="Koleksi buket bunga artificial premium, snack, uang & boneka wisuda cantik. Gratis kartu ucapan & custom warna!">
+	<meta property="og:image" content="images/Cover8.jpg">
 
 	<link rel="icon" href="images/logo-circle.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="images/logo-circle.ico" type="image/x-icon" />
@@ -62,16 +62,17 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
             color: #fff;
         }
+
 		.btn-hero-cta {
 			background: #a5742a;
 			color: #fff !important;
-			padding: 10px 22px;
+			padding: 12px 26px;
 			border-radius: 25px;
 			font-weight: 600;
 			display: inline-block;
 			margin-right: 10px;
 			margin-top: 10px;
-			box-shadow: 0 4px 12px rgba(165,116,42,0.3);
+			box-shadow: 0 4px 14px rgba(165,116,42,0.35);
 			transition: all 0.3s ease;
 		}
 		.btn-hero-cta:hover {
@@ -82,7 +83,7 @@
 		.btn-hero-outline {
 			border: 2px solid #a5742a;
 			color: #a5742a !important;
-			padding: 8px 20px;
+			padding: 10px 22px;
 			border-radius: 25px;
 			font-weight: 600;
 			display: inline-block;
@@ -102,11 +103,274 @@
 			display: none !important;
 		}
 
-		/* Mobile Responsive Enhancements */
-		@media (max-width: 767.98px) {
+		/* Value proposition cards */
+		.value-card {
+			background: #fff;
+			border-radius: 12px;
+			padding: 24px 20px;
+			box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+			border-top: 4px solid #a5742a;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			height: 100%;
+		}
+		.value-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 25px rgba(165,116,42,0.15);
+		}
+		.value-icon {
+			font-size: 32px;
+			margin-bottom: 12px;
+			display: inline-block;
+		}
+
+		/* Occasion Explorer Cards */
+		.occasion-card {
+			position: relative;
+			border-radius: 14px;
+			overflow: hidden;
+			box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+			height: 240px;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			cursor: pointer;
+			display: block;
+			text-decoration: none !important;
+		}
+		.occasion-card:hover {
+			transform: scale(1.03);
+			box-shadow: 0 10px 25px rgba(165,116,42,0.25);
+		}
+		.occasion-bg {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.5s ease;
+		}
+		.occasion-card:hover .occasion-bg {
+			transform: scale(1.08);
+		}
+		.occasion-overlay {
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			padding: 20px;
+			color: #fff;
+		}
+		.occasion-title {
+			font-size: 18px;
+			font-weight: 700;
+			margin-bottom: 4px;
+			color: #fff;
+		}
+		.occasion-desc {
+			font-size: 12px;
+			color: rgba(255,255,255,0.85);
+			margin-bottom: 0;
+		}
+
+		/* Product Card styling in Homepage */
+		.hp-product-card {
+			background: #fff;
+			border-radius: 12px;
+			overflow: hidden;
+			box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+			border: 1px solid #f0f0f0;
+		}
+		.hp-product-card:hover {
+			transform: translateY(-6px);
+			box-shadow: 0 12px 28px rgba(165,116,42,0.18);
+		}
+		.hp-img-wrap {
+			position: relative;
+			width: 100%;
+			padding-top: 100%;
+			overflow: hidden;
+			background: #fafafa;
+		}
+		.hp-img-wrap img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transition: transform 0.4s ease;
+		}
+		.hp-product-card:hover .hp-img-wrap img {
+			transform: scale(1.06);
+		}
+		.hp-badge {
+			position: absolute;
+			top: 12px;
+			left: 12px;
+			background: linear-gradient(135deg, #a5742a 0%, #8b5f20 100%);
+			color: #fff;
+			font-size: 11px;
+			font-weight: 700;
+			padding: 4px 10px;
+			border-radius: 20px;
+			z-index: 2;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+			text-transform: uppercase;
+		}
+		.hp-card-body {
+			padding: 16px;
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			justify-content: space-between;
+		}
+		.hp-title {
+			font-size: 15px;
+			font-weight: 700;
+			color: #333;
+			margin-bottom: 6px;
+			line-height: 1.35;
+		}
+		.hp-price {
+			font-size: 17px;
+			font-weight: 800;
+			color: #a5742a;
+			margin-bottom: 10px;
+		}
+		.hp-rating {
+			font-size: 12px;
+			color: #f39c12;
+			margin-bottom: 8px;
+			font-weight: 600;
+		}
+
+		/* How to Order Steps */
+		.step-box {
+			text-align: center;
+			padding: 24px 16px;
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+			position: relative;
+			height: 100%;
+		}
+		.step-number {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #a5742a 0%, #8b5f20 100%);
+			color: #fff;
+			font-weight: 800;
+			font-size: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 16px;
+			box-shadow: 0 4px 12px rgba(165,116,42,0.3);
+		}
+
+		/* Testimonials */
+		.testi-card {
+			background: #fff;
+			border-radius: 12px;
+			padding: 24px;
+			box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+		.testi-avatar {
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 2px solid #a5742a;
+			margin-right: 14px;
+		}
+
+		/* Statistics Counter Section */
+		.stats-section {
+			background: linear-gradient(135deg, #2c251e 0%, #1a1612 100%);
+			color: #fff;
+			padding: 60px 0;
+		}
+		.stat-item {
+			text-align: center;
+			padding: 15px;
+		}
+		.stat-number {
+			font-size: 38px;
+			font-weight: 800;
+			color: #f3c780;
+			margin-bottom: 4px;
+			line-height: 1;
+		}
+		.stat-label {
+			font-size: 14px;
+			color: rgba(255,255,255,0.85);
+			margin-bottom: 0;
+		}
+
+		/* Mobile Header Bar */
+		.mobile-header-bar {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 56px;
+			background: #ffffff;
+			border-bottom: 1px solid #eaeaea;
+			z-index: 1030;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 16px;
+			box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+		}
+		.mobile-logo-img {
+			width: 32px;
+			height: 32px;
+			object-fit: contain;
+		}
+		.mobile-logo-text {
+			font-weight: 700;
+			font-size: 15px;
+			color: #333;
+		}
+		.mobile-header-actions {
+			display: flex;
+			gap: 8px;
+		}
+		.mobile-header-btn {
+			font-size: 12px;
+			font-weight: 600;
+			padding: 6px 12px;
+			border-radius: 20px;
+			text-decoration: none !important;
+		}
+		.mobile-header-btn.btn-track {
+			background: #f4ede1;
+			color: #a5742a;
+			border: 1px solid #e3d2ba;
+		}
+		.mobile-header-btn.btn-wa {
+			background: #25D366;
+			color: #fff;
+		}
+
+		@media (max-width: 991.98px) {
+			.mobile-header-bar {
+				display: flex;
+			}
+			#colorlib-main {
+				margin-top: 56px;
+			}
 			.floating-wa-btn {
-				width: 50px;
-				height: 50px;
+				width: 52px;
+				height: 52px;
 				font-size: 26px;
 				bottom: 18px;
 				right: 18px;
@@ -126,8 +390,8 @@
 			</a>
 		</div>
 		<div class="mobile-header-actions">
-			<a href="collection.html" class="mobile-header-btn btn-track" title="Track Order">🔍 Track</a>
-			<a href="https://wa.me/6282135621780?text=Halo%20Dzakirah%20Bouquet,%20saya%20ingin%20konsultasi%20pesanan" target="_blank" class="mobile-header-btn btn-wa" title="Chat WhatsApp">📲 WA</a>
+			<a href="#" onclick="$('#trackOrderModal').modal('show'); return false;" class="mobile-header-btn btn-track" title="Track Order">🔍 Track</a>
+			<a href="https://wa.me/6282135621780?text=Halo%20Kak%20Dzakirah!%20🌸%20Saya%20tertarik%20konsultasi%20pesanan%20buket" target="_blank" class="mobile-header-btn btn-wa" title="Chat WhatsApp">📲 WA</a>
 		</div>
 	</div>
 
@@ -139,14 +403,24 @@
 			<nav id="colorlib-main-menu" role="navigation">
 				<ul>
 					<li class="colorlib-active"><a href="index.html">Beranda</a></li>
-					<li><a href="collection.html">Koleksi</a></li>
+					<li><a href="collection.html">Koleksi Buket</a></li>
 					<li><a href="services.html">Layanan Kami</a></li>
-					<li class="mt-2"><a href="collection.html" class="btn btn-sm btn-outline-warning text-dark px-3 btn-track-order" style="border-radius:20px; font-weight:600; text-decoration:none !important;">🔍 Live Track Order</a></li>
+					<li class="mt-3">
+						<a href="collection.html" class="btn btn-sm btn-primary text-white px-3 font-weight-bold shadow-sm" style="border-radius:20px; background:#a5742a; border-color:#a5742a; text-decoration:none !important;">💐 Pesan Sekarang</a>
+					</li>
+					<li class="mt-2">
+						<a href="#" onclick="$('#trackOrderModal').modal('show'); return false;" class="btn btn-sm btn-outline-warning text-dark px-3 btn-track-order" style="border-radius:20px; font-weight:600; text-decoration:none !important;">🔍 Live Track Order</a>
+					</li>
 				</ul>
 			</nav>
+			<div class="colorlib-footer mt-4">
+				<p class="small text-muted mb-0">Area Workshop:<br>📍 Gedangsari & Yogyakarta</p>
+			</div>
 		</aside>
 
 		<div id="colorlib-main">
+			
+			<!-- SECTION 1: HERO SLIDER & VALUE OVERVIEW -->
 			<section class="ftco-section-no-padding bg-light">
 				<div class="hero-wrap">
 					<div class="overlay"></div>
@@ -163,14 +437,25 @@
 						</div>
 						<div class="author-info text p-3 p-md-5">
 							<div class="desc">
-								<span class="subheading">Selamat datang di</span>
+								<span class="badge badge-pill badge-warning px-3 py-2 text-dark font-weight-bold mb-3" style="background: #f4ede1; color: #a5742a !important; font-size: 13px;">
+									🌸 Toko Buket Kado #1 Favorit Mahasiswa Jogja
+								</span>
 								<h1 class="big-letter">Dzakirah</h1>
 								<h1 class="mb-3"><span>Dzakirah Bouquet</span></h1>
-								<p class="mb-4">Kami mempersembahkan koleksi buket bunga artificial, snack, uang, dan hampers wisuda yang disusun dengan cermat dan kelembutan. Berikan sentuhan istimewa untuk orang terkasih Anda. Gratis kartu ucapan & bebas custom warna!</p>
+								<p class="mb-4" style="line-height: 1.7; font-size: 15px;">
+									Rangkaian buket bunga artificial awet, buket snack, uang, dan hampers wisuda dengan sentuhan estetik premium. <strong>Bisa COD se-Jogja, pengerjaan cepat (H-1 / Sameday), dan Gratis Kartu Ucapan!</strong>
+								</p>
 								
 								<div>
-									<a href="collection.html" class="btn-hero-cta">💐 Lihat Koleksi Buket</a>
-									<a href="https://wa.me/6282135621780?text=Halo%20Dzakirah%20Bouquet,%20saya%20ingin%20konsultasi%20pesanan%20buket" target="_blank" class="btn-hero-outline">📲 Chat WhatsApp</a>
+									<a href="collection.html" class="btn-hero-cta">💐 Lihat Koleksi & Pesan</a>
+									<a href="https://wa.me/6282135621780?text=Halo%20Kak%20Dzakirah!%20🌸%20Saya%20mau%20tanya%20slot%20buket%20custom" target="_blank" class="btn-hero-outline">📲 Konsultasi WhatsApp</a>
+								</div>
+
+								<div class="mt-4 pt-2 d-flex align-items-center">
+									<div class="text-warning mr-2" style="font-size: 18px;">⭐⭐⭐⭐⭐</div>
+									<div class="small text-muted font-weight-bold">
+										<span class="text-dark">4.9 / 5.0</span> dari 200+ ulasan pembeli nyata
+									</div>
 								</div>
 
 								<ul class="ftco-social mt-4">
@@ -184,15 +469,423 @@
 				</div>
 			</section>
 
-			<footer class="ftco-footer ftco-bg-dark ftco-section">
-				<div class="container px-md-5">
+			<!-- SECTION 2: TRUST & VALUE PROPOSITION (HP-01) -->
+			<section class="py-5" style="background: #faf8f5;">
+				<div class="container px-md-4">
 					<div class="row">
-						<div class="col-md-12 text-center">
-							<p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> Dzakirah Bouquet. All rights reserved.</p>
+						<div class="col-6 col-md-3 mb-3">
+							<div class="value-card">
+								<div class="value-icon">🛵</div>
+								<h6 class="font-weight-bold text-dark mb-1">Bisa COD & Ambil Toko</h6>
+								<p class="small text-muted mb-0">Bebas bayar di tempat atau ambil langsung di workshop area Yogyakarta & Gedangsari.</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3 mb-3">
+							<div class="value-card">
+								<div class="value-icon">⚡</div>
+								<h6 class="font-weight-bold text-dark mb-1">Pengerjaan Cepat</h6>
+								<p class="small text-muted mb-0">Siap melayani pesanan kilat (H-1 atau Sameday) untuk sidang & wisuda mendadak.</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3 mb-3">
+							<div class="value-card">
+								<div class="value-icon">💌</div>
+								<h6 class="font-weight-bold text-dark mb-1">Gratis Kartu Ucapan</h6>
+								<p class="small text-muted mb-0">Bebas pilih tema warna pita, wrapping, dan kartu ucapan estetik tanpa biaya tambahan.</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3 mb-3">
+							<div class="value-card">
+								<div class="value-icon">🌸</div>
+								<h6 class="font-weight-bold text-dark mb-1">Bunga Awet Selamanya</h6>
+								<p class="small text-muted mb-0">Material artificial satin pilihan yang anti layu, awet bertahun-tahun sebagai kenangan.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 3: FEATURED BEST SELLERS (HP-03) -->
+			<section class="py-5 bg-white">
+				<div class="container px-md-4">
+					<div class="row justify-content-between align-items-end mb-4">
+						<div class="col-md-8">
+							<span class="subheading text-uppercase font-weight-bold" style="color: #a5742a; letter-spacing: 1px; font-size: 13px;">Favorit Pembeli</span>
+							<h2 class="h3 font-weight-bold text-dark mb-1">💐 Buket Paling Laris Minggu Ini</h2>
+							<p class="text-muted mb-0">Desain buket favorit untuk wisuda, sidang, dan momen kado spesial di Yogyakarta.</p>
+						</div>
+						<div class="col-md-4 text-md-right mt-3 mt-md-0">
+							<a href="collection.html" class="btn btn-outline-dark font-weight-bold px-4" style="border-radius: 20px;">
+								Lihat Semua Koleksi &rarr;
+							</a>
+						</div>
+					</div>
+
+					<!-- Dynamic Grid Container -->
+					<div id="featuredProductsGrid" class="row">
+						<!-- Placeholder fallback while loading -->
+						<div class="col-md-3 col-sm-6 mb-4">
+							<div class="hp-product-card">
+								<div class="hp-img-wrap">
+									<span class="hp-badge">Wisuda Best</span>
+									<img src="images/Cover8.jpg" alt="Graduation Doll Bouquet">
+								</div>
+								<div class="hp-card-body">
+									<div>
+										<div class="hp-rating">⭐⭐⭐⭐⭐ 4.9 (24 ulasan)</div>
+										<h4 class="hp-title">Graduation Doll Bouquet (M)</h4>
+										<div class="hp-price">Rp 70.000</div>
+									</div>
+									<a href="collection.html" class="btn btn-sm btn-block text-white font-weight-bold py-2" style="background:#a5742a; border-radius: 8px;">Pesan Sekarang</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4">
+							<div class="hp-product-card">
+								<div class="hp-img-wrap">
+									<span class="hp-badge">Best Seller</span>
+									<img src="images/Cover2.jpg" alt="Rose Purple Bouquet">
+								</div>
+								<div class="hp-card-body">
+									<div>
+										<div class="hp-rating">⭐⭐⭐⭐⭐ 4.9 (18 ulasan)</div>
+										<h4 class="hp-title">Rose Purple Bouquet (XS)</h4>
+										<div class="hp-price">Rp 65.000</div>
+									</div>
+									<a href="collection.html" class="btn btn-sm btn-block text-white font-weight-bold py-2" style="background:#a5742a; border-radius: 8px;">Pesan Sekarang</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4">
+							<div class="hp-product-card">
+								<div class="hp-img-wrap">
+									<span class="hp-badge">Popular</span>
+									<img src="images/Cover7.jpg" alt="Buket Uang & Snack Combo">
+								</div>
+								<div class="hp-card-body">
+									<div>
+										<div class="hp-rating">⭐⭐⭐⭐⭐ 4.8 (15 ulasan)</div>
+										<h4 class="hp-title">Buket Uang & Snack Combo</h4>
+										<div class="hp-price">Rp 85.000</div>
+									</div>
+									<a href="collection.html" class="btn btn-sm btn-block text-white font-weight-bold py-2" style="background:#a5742a; border-radius: 8px;">Pesan Sekarang</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6 mb-4">
+							<div class="hp-product-card">
+								<div class="hp-img-wrap">
+									<span class="hp-badge">Favorit</span>
+									<img src="images/Cover3.jpg" alt="Artificial Rose Bouquet">
+								</div>
+								<div class="hp-card-body">
+									<div>
+										<div class="hp-rating">⭐⭐⭐⭐⭐ 4.9 (19 ulasan)</div>
+										<h4 class="hp-title">Artificial Rose Bouquet (M)</h4>
+										<div class="hp-price">Rp 55.000</div>
+									</div>
+									<a href="collection.html" class="btn btn-sm btn-block text-white font-weight-bold py-2" style="background:#a5742a; border-radius: 8px;">Pesan Sekarang</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 4: OCCASION EXPLORER (HP-04) -->
+			<section class="py-5" style="background: #faf8f5;">
+				<div class="container px-md-4">
+					<div class="text-center mb-5">
+						<span class="subheading text-uppercase font-weight-bold" style="color: #a5742a; letter-spacing: 1px; font-size: 13px;">Temukan Inspirasi Kado</span>
+						<h2 class="h3 font-weight-bold text-dark">Buket untuk Setiap Momen Berharga</h2>
+						<p class="text-muted">Bingung memilih? Klik momen acara di bawah ini untuk melihat rekomendasi buket yang paling tepat.</p>
+					</div>
+
+					<div class="row">
+						<!-- Occasion 1: Wisuda -->
+						<div class="col-md-3 col-sm-6 mb-3">
+							<a href="collection.html?category=graduation" class="occasion-card">
+								<img src="images/Cover8.jpg" alt="Buket Wisuda & Sidang" class="occasion-bg">
+								<div class="occasion-overlay">
+									<div class="occasion-title">🎓 Wisuda & Sidang</div>
+									<p class="occasion-desc">Lengkap dengan boneka toga & kartu ucapan selamat kelulusan.</p>
+								</div>
+							</a>
+						</div>
+						<!-- Occasion 2: Ulang Tahun -->
+						<div class="col-md-3 col-sm-6 mb-3">
+							<a href="collection.html?category=snack-money" class="occasion-card">
+								<img src="images/Cover10.jpg" alt="Buket Ulang Tahun" class="occasion-bg">
+								<div class="occasion-overlay">
+									<div class="occasion-title">🎂 Ulang Tahun & Surprise</div>
+									<p class="occasion-desc">Buket snack favorit & uang tarik yang bikin hari bahagianya makin seru.</p>
+								</div>
+							</a>
+						</div>
+						<!-- Occasion 3: Anniversary -->
+						<div class="col-md-3 col-sm-6 mb-3">
+							<a href="collection.html?category=artificial" class="occasion-card">
+								<img src="images/Cover3.jpg" alt="Anniversary & Romantis" class="occasion-bg">
+								<div class="occasion-overlay">
+									<div class="occasion-title">💕 Anniversary & Pacar</div>
+									<p class="occasion-desc">Mawar satin premium dengan kombinasi warna lembut yang berkesan mendalam.</p>
+								</div>
+							</a>
+						</div>
+						<!-- Occasion 4: Budget Hemat -->
+						<div class="col-md-3 col-sm-6 mb-3">
+							<a href="collection.html?category=all" class="occasion-card">
+								<img src="images/Cover5.jpg" alt="Buket Hemat Mahasiswa" class="occasion-bg">
+								<div class="occasion-overlay">
+									<div class="occasion-title">💰 Hemat Mahasiswa</div>
+									<p class="occasion-desc">Mulai Rp 25.000, tetap cantik dan estetik tanpa menguras kantong kosan.</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 5: STATS & SOCIAL PROOF (HP-02) -->
+			<section class="stats-section" id="section-counter">
+				<div class="container px-md-4">
+					<div class="row">
+						<div class="col-6 col-md-3">
+							<div class="stat-item">
+								<div class="stat-number"><span class="number" data-number="1500">0</span>+</div>
+								<p class="stat-label">💐 Buket Terkirim</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="stat-item">
+								<div class="stat-number">4.9 / 5</div>
+								<p class="stat-label">⭐ Rating Kepuasan</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="stat-item">
+								<div class="stat-number"><span class="number" data-number="15">0</span>+ Kampus</div>
+								<p class="stat-label">🎓 Terlayani di Jogja</p>
+							</div>
+						</div>
+						<div class="col-6 col-md-3">
+							<div class="stat-item">
+								<div class="stat-number">100%</div>
+								<p class="stat-label">💖 Handcrafted with Love</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 6: HOW TO ORDER (HP-05) -->
+			<section class="py-5 bg-white">
+				<div class="container px-md-4">
+					<div class="text-center mb-5">
+						<span class="subheading text-uppercase font-weight-bold" style="color: #a5742a; letter-spacing: 1px; font-size: 13px;">Praktis & Anti Ribet</span>
+						<h2 class="h3 font-weight-bold text-dark">Alur Pemesanan dalam 3 Langkah Mudah</h2>
+						<p class="text-muted">Cukup pesan lewat website, atur kartu ucapan, dan pantau status buketmu secara realtime.</p>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 mb-4">
+							<div class="step-box">
+								<div class="step-number">1</div>
+								<h5 class="font-weight-bold text-dark mb-2">Pilih Desain Buket</h5>
+								<p class="text-muted small mb-0">Eksplorasi katalog buket bunga artificial, boneka wisuda, snack atau uang dengan harga transparan.</p>
+							</div>
+						</div>
+						<div class="col-md-4 mb-4">
+							<div class="step-box">
+								<div class="step-number">2</div>
+								<h5 class="font-weight-bold text-dark mb-2">Kustomisasi & Pesan</h5>
+								<p class="text-muted small mb-0">Pilih warna wrapping, isi pesan kartu ucapan (atau pakai template cepat kami), dan tentukan jadwal pakai.</p>
+							</div>
+						</div>
+						<div class="col-md-4 mb-4">
+							<div class="step-box">
+								<div class="step-number">3</div>
+								<h5 class="font-weight-bold text-dark mb-2">Ambil / Kirim & Pantau</h5>
+								<p class="text-muted small mb-0">Bisa COD/ambil di lokasi atau dikirim GoSend. Anda akan mendapatkan kode unik untuk memantau status pembuatan secara realtime!</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 7: REAL TESTIMONIALS (HP-06) -->
+			<section class="py-5" style="background: #faf8f5;">
+				<div class="container px-md-4">
+					<div class="text-center mb-5">
+						<span class="subheading text-uppercase font-weight-bold" style="color: #a5742a; letter-spacing: 1px; font-size: 13px;">Suara Pembeli</span>
+						<h2 class="h3 font-weight-bold text-dark">Kata Mereka tentang Dzakirah Bouquet</h2>
+						<p class="text-muted">Bukti nyata kepuasan mahasiswa & pelanggan yang telah mempercayakan momen spesialnya bersama kami.</p>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 mb-4">
+							<div class="testi-card">
+								<div>
+									<div class="text-warning mb-2" style="font-size: 15px;">⭐⭐⭐⭐⭐</div>
+									<p class="font-italic text-dark mb-3" style="font-size: 14px; line-height: 1.6;">
+										"Buket bunganya cantik banget! Kertas wrappingnya rapi dan warnanya bener-bener soft sesuai request. Pas wisuda temen di UNY dia suka banget!"
+									</p>
+								</div>
+								<div class="d-flex align-items-center">
+									<img src="images/Cover8.jpg" alt="Siti Rahma" class="testi-avatar">
+									<div>
+										<h6 class="font-weight-bold text-dark mb-0" style="font-size: 14px;">Siti Rahma</h6>
+										<small class="text-muted">Mahasiswi UNY Yogyakarta</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 mb-4">
+							<div class="testi-card">
+								<div>
+									<div class="text-warning mb-2" style="font-size: 15px;">⭐⭐⭐⭐⭐</div>
+									<p class="font-italic text-dark mb-3" style="font-size: 14px; line-height: 1.6;">
+										"Penyelamat banget buat yang butuh buket kilat! Pesan H-1 buat wisuda, prosesnya cepat dan bisa COD di area Jogja. Recommended!"
+									</p>
+								</div>
+								<div class="d-flex align-items-center">
+									<img src="images/Cover2.jpg" alt="Budi Santoso" class="testi-avatar">
+									<div>
+										<h6 class="font-weight-bold text-dark mb-0" style="font-size: 14px;">Budi Santoso</h6>
+										<small class="text-muted">Pelanggan di Yogyakarta</small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 mb-4">
+							<div class="testi-card">
+								<div>
+									<div class="text-warning mb-2" style="font-size: 15px;">⭐⭐⭐⭐⭐</div>
+									<p class="font-italic text-dark mb-3" style="font-size: 14px; line-height: 1.6;">
+										"Buket snacknya padat dan rapi banget, cokelatnya nggak ada yang leleh. Fitur live tracking di webnya keren banget, jadi tenang mantau pesanan."
+									</p>
+								</div>
+								<div class="d-flex align-items-center">
+									<img src="images/Cover7.jpg" alt="Anisa Putri" class="testi-avatar">
+									<div>
+										<h6 class="font-weight-bold text-dark mb-0" style="font-size: 14px;">Anisa Putri</h6>
+										<small class="text-muted">Alumni UPN Veteran Jogja</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- SECTION 8: URGENCY & FINAL CTA BANNER -->
+			<section class="py-5" style="background: linear-gradient(135deg, #a5742a 0%, #754f19 100%); color: #fff;">
+				<div class="container px-md-4 text-center">
+					<h2 class="font-weight-bold text-white mb-2">Ada Acara Wisuda atau Ulang Tahun Minggu Ini? 🌸</h2>
+					<p class="mb-4" style="font-size: 16px; opacity: 0.95; max-width: 650px; margin: 0 auto;">
+						Slot pengerjaan harian kami terbatas agar setiap buket dirangkai dengan kesempurnaan. Pesan sekarang untuk mengamankan slot Anda!
+					</p>
+					<div class="d-flex flex-wrap justify-content-center">
+						<a href="collection.html" class="btn btn-light font-weight-bold px-4 py-3 mr-2 mb-2 text-dark shadow" style="border-radius: 25px; font-size: 15px;">
+							💐 Pesan Buket Sekarang
+						</a>
+						<a href="https://wa.me/6282135621780?text=Halo%20Kak%20Dzakirah!%20🌸%20Saya%20mau%20booking%20slot%20buket%20untuk%20acara%20saya" target="_blank" class="btn btn-outline-light font-weight-bold px-4 py-3 mb-2" style="border-radius: 25px; font-size: 15px;">
+							📲 Tanya Slot via WhatsApp
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- FOOTER -->
+			<footer class="ftco-footer ftco-bg-dark ftco-section py-4">
+				<div class="container px-md-4">
+					<div class="row align-items-center">
+						<div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+							<h5 class="text-white font-weight-bold mb-1">Dzakirah Bouquet Jogja</h5>
+							<p class="text-muted small mb-0">Spesialis Buket Bunga Artificial, Snack, Uang & Wisuda Elegan. Yogyakarta.</p>
+						</div>
+						<div class="col-md-6 text-center text-md-right">
+							<p class="text-muted small mb-0">
+								&copy; <script>document.write(new Date().getFullYear());</script> Dzakirah Bouquet. All rights reserved.
+							</p>
 						</div>
 					</div>
 				</div>
 			</footer>
+		</div>
+	</div>
+
+	<!-- UNIVERSAL LIVE TRACKING MODAL (Fix for bug in index.html) -->
+	<div class="modal fade" id="trackOrderModal" tabindex="-1" role="dialog">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
+			<div class="modal-content" style="border-radius: 14px; overflow: hidden;">
+				<div class="modal-header text-white font-weight-bold" style="background: linear-gradient(135deg, #a5742a 0%, #8b5f20 100%) !important;">
+					<h5 class="modal-title font-weight-bold" style="color: #fff !important;">🔍 Lacak Status Pesanan (Live Tracking)</h5>
+					<button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body p-4">
+					<!-- Search Input -->
+					<div class="form-group mb-4">
+						<label class="font-weight-bold" style="font-size: 13px;">Masukkan Kode Pesanan Anda:</label>
+						<div class="input-group">
+							<input type="text" id="trackOrderInput" class="form-control form-control-lg text-uppercase" placeholder="DZK-YYYYMMDD-XXXX" style="letter-spacing: 1px; font-weight: 700;">
+							<div class="input-group-append">
+								<button class="btn font-weight-bold px-4" onclick="executeOrderTracking()" style="background: #a5742a; color: #fff; border: none;">Cari Pesanan</button>
+							</div>
+						</div>
+						<small class="text-muted mt-1 d-block">Kode pesanan didapatkan setelah Anda membuat pesanan di website Dzakirah Bouquet.</small>
+					</div>
+
+					<!-- Result Container -->
+					<div id="trackResultContainer" class="d-none">
+						<div class="card p-3 mb-3 bg-light border-0 shadow-sm">
+							<div class="d-flex justify-content-between align-items-center mb-2">
+								<h6 class="font-weight-bold mb-0 text-dark">Kode Order: <span id="trackCodeDisplay" class="text-primary"></span></h6>
+								<span id="trackStatusBadge" class="badge badge-pill badge-primary px-3 py-2" style="font-size: 13px;"></span>
+							</div>
+							<div class="row text-center mt-3" style="font-size: 12px;">
+								<div class="col-3"><div id="stepPending" class="p-2 rounded bg-secondary text-white font-weight-bold">1. Diterima</div></div>
+								<div class="col-3"><div id="stepProcess" class="p-2 rounded bg-secondary text-white font-weight-bold">2. Dirangkai</div></div>
+								<div class="col-3"><div id="stepDone" class="p-2 rounded bg-secondary text-white font-weight-bold">3. Selesai</div></div>
+								<div class="col-3"><div id="stepShipped" class="p-2 rounded bg-secondary text-white font-weight-bold">4. Siap/Dikirim</div></div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<div class="p-3 border rounded h-100 bg-white">
+									<h6 class="font-weight-bold text-muted mb-3" style="font-size: 12px; text-transform: uppercase;">Informasi Pemesan</h6>
+									<p class="mb-1"><strong>Nama:</strong> <span id="trackCustomerName"></span></p>
+									<p class="mb-1"><strong>Tgl Pakai:</strong> <span id="trackUseDate"></span></p>
+									<p class="mb-1"><strong>Pengiriman:</strong> <span id="trackShipping"></span></p>
+									<p class="mb-1"><strong>Metode Bayar:</strong> <span id="trackPayMethod" class="badge badge-info"></span></p>
+									<p class="mb-0"><strong>Status Bayar:</strong> <span id="trackPayStatus" class="badge badge-warning"></span></p>
+								</div>
+							</div>
+							<div class="col-md-6 mb-3">
+								<div class="p-3 border rounded h-100 bg-white">
+									<h6 class="font-weight-bold text-muted mb-3" style="font-size: 12px; text-transform: uppercase;">Detail Buket & Total</h6>
+									<p class="mb-1"><strong>Wrap Color:</strong> <span id="trackWrap"></span></p>
+									<p class="mb-1"><strong>Add-ons:</strong> <span id="trackAddons"></span></p>
+									<p class="mb-1"><strong>Total Biaya:</strong> <strong id="trackTotalPrice" class="text-success" style="font-size: 16px;"></strong></p>
+									<div id="trackCardBox" class="mt-2 p-2 bg-light rounded text-muted" style="font-size: 12px; font-style: italic;"></div>
+								</div>
+							</div>
+						</div>
+
+						<div id="completionPhotoContainer" class="card p-3 mb-3 border-success bg-white d-none text-center">
+							<h6 class="font-weight-bold text-success mb-2">🌸 Foto Buket Anda Sudah Selesai Dirangkai!</h6>
+							<img id="completionPhotoImg" src="" alt="Bukti Selesai" class="img-fluid rounded mx-auto" style="max-height: 250px; object-fit: cover;">
+						</div>
+
+						<div class="text-center mt-3">
+							<a href="collection.html" class="btn btn-outline-primary btn-sm font-weight-bold">Lihat Detail Lengkap di Halaman Koleksi &rarr;</a>
+						</div>
+					</div>
+
+					<div id="trackErrorMsg" class="alert alert-danger mt-3 d-none text-center"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -204,7 +897,7 @@
 		</svg></div>
 
 	<!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/6282135621780?text=Halo%20Dzakirah%20Bouquet,%20saya%20ingin%20bertanya%20mengenai%20produk%20buket" class="floating-wa-btn" target="_blank" title="Chat WhatsApp">
+    <a href="https://wa.me/6282135621780?text=Halo%20Kak%20Dzakirah!%20🌸%20Saya%20tertarik%20konsultasi%20pesanan%20buket" class="floating-wa-btn" target="_blank" title="Chat WhatsApp">
         <span class="icon-whatsapp"></span>
     </a>
 
@@ -223,6 +916,136 @@
 	<script src="js/bootstrap-datepicker.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
+
+	<script>
+		function formatRp(num) {
+			return "Rp " + Number(num).toLocaleString('id-ID');
+		}
+
+		function escapeHTML(str) {
+			if (!str) return '';
+			return String(str).replace(/[&<>'"]/g, 
+				tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+		}
+
+		// Fetch and render Featured Products in Homepage
+		async function loadFeaturedProducts() {
+			try {
+				const res = await fetch('/api/products?featured=true');
+				const json = await res.json();
+				if (json.success && json.data && json.data.length > 0) {
+					const container = document.getElementById('featuredProductsGrid');
+					container.innerHTML = '';
+					// Take top 4 featured
+					const items = json.data.slice(0, 4);
+					items.forEach(p => {
+						const col = document.createElement('div');
+						col.className = 'col-md-3 col-sm-6 mb-4 ftco-animate fadeInUp ftco-animated';
+						const ratingText = p.avg_rating ? `⭐ ${p.avg_rating} (${p.total_reviews || 0} ulasan)` : '⭐ 5.0 (Baru)';
+						col.innerHTML = `
+							<div class="hp-product-card">
+								<div class="hp-img-wrap">
+									<span class="hp-badge">${escapeHTML(p.badge || 'Ready Stock')}</span>
+									<img src="${p.image_url}" alt="${escapeHTML(p.name)}" onerror="this.onerror=null;this.src='images/Cover.jpg';">
+								</div>
+								<div class="hp-card-body">
+									<div>
+										<div class="hp-rating">${ratingText}</div>
+										<h4 class="hp-title">${escapeHTML(p.name)}</h4>
+										<div class="hp-price">${formatRp(p.price)}</div>
+									</div>
+									<a href="collection.html" class="btn btn-sm btn-block text-white font-weight-bold py-2" style="background:#a5742a; border-radius: 8px;">
+										💐 Pesan Sekarang
+									</a>
+								</div>
+							</div>
+						`;
+						container.appendChild(col);
+					});
+				}
+			} catch (err) {
+				console.log('Using default featured products');
+			}
+		}
+
+		// Universal Live Order Tracking function
+		async function executeOrderTracking() {
+			const inputVal = document.getElementById("trackOrderInput").value.trim();
+			const resultBox = document.getElementById("trackResultContainer");
+			const errorBox = document.getElementById("trackErrorMsg");
+
+			errorBox.classList.add("d-none");
+			resultBox.classList.add("d-none");
+
+			if (!inputVal) {
+				errorBox.textContent = "Harap masukkan kode pesanan!";
+				errorBox.classList.remove("d-none");
+				return;
+			}
+
+			try {
+				const res = await fetch(`/api/orders/track/${encodeURIComponent(inputVal)}`);
+				const json = await res.json();
+
+				if (!json.success || !json.data) {
+					errorBox.textContent = json.message || "Pesanan tidak ditemukan.";
+					errorBox.classList.remove("d-none");
+					return;
+				}
+
+				const o = json.data;
+				document.getElementById("trackCodeDisplay").textContent = o.order_code;
+				document.getElementById("trackStatusBadge").textContent = o.status;
+				document.getElementById("trackCustomerName").textContent = o.customer_name;
+				document.getElementById("trackUseDate").textContent = new Date(o.use_date).toLocaleDateString('id-ID');
+				document.getElementById("trackShipping").textContent = o.shipping_method;
+				document.getElementById("trackPayMethod").textContent = o.payment_method || 'Manual';
+				document.getElementById("trackPayStatus").textContent = o.payment_status || 'Unpaid';
+				document.getElementById("trackWrap").textContent = o.wrap_color || 'Standar';
+				document.getElementById("trackAddons").textContent = o.addons || 'Tidak Ada';
+				document.getElementById("trackTotalPrice").textContent = formatRp(o.total_price);
+
+				// Step progress highlight
+				const steps = ['stepPending', 'stepProcess', 'stepDone', 'stepShipped'];
+				steps.forEach(id => document.getElementById(id).className = "p-2 rounded bg-secondary text-white font-weight-bold");
+
+				if (o.status === "Pending") {
+					document.getElementById("stepPending").className = "p-2 rounded bg-warning text-dark font-weight-bold";
+				} else if (o.status === "Diproses") {
+					document.getElementById("stepProcess").className = "p-2 rounded bg-info text-white font-weight-bold";
+				} else if (o.status === "Selesai") {
+					document.getElementById("stepDone").className = "p-2 rounded bg-success text-white font-weight-bold";
+					document.getElementById("stepShipped").className = "p-2 rounded bg-success text-white font-weight-bold";
+				}
+
+				// Completion photo
+				const compBox = document.getElementById("completionPhotoContainer");
+				const compImg = document.getElementById("completionPhotoImg");
+				if (o.completion_photo_url) {
+					compImg.src = o.completion_photo_url;
+					compBox.classList.remove("d-none");
+				} else {
+					compBox.classList.add("d-none");
+				}
+
+				resultBox.classList.remove("d-none");
+			} catch (err) {
+				errorBox.textContent = "Gagal menghubungi server untuk melacak pesanan.";
+				errorBox.classList.remove("d-none");
+			}
+		}
+
+		$(document).ready(function() {
+			loadFeaturedProducts();
+			
+			// Allow enter key on track order input
+			$('#trackOrderInput').on('keypress', function(e) {
+				if (e.which === 13) {
+					executeOrderTracking();
+				}
+			});
+		});
+	</script>
 
 </body>
 
