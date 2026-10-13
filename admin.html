@@ -128,20 +128,69 @@
             font-weight: 500;
         }
 
-        /* Navigation Tabs */
+        /* Navigation Tabs & Controls */
+        .admin-tab-bar {
+            margin-bottom: 24px;
+        }
+
+        .admin-controls-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-pills-custom {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .nav-pills-custom .nav-item {
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
         .nav-pills-custom .nav-link {
             border-radius: 25px;
             color: #555;
             font-weight: 600;
-            padding: 8px 20px;
+            padding: 8px 18px;
             font-size: 14px;
             transition: all 0.2s ease;
+            background: #ffffff;
+            border: 1px solid #e2e2e2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-pills-custom .nav-link:hover {
+            background-color: #faf5ee;
+            color: var(--primary-gold);
+            border-color: var(--primary-gold);
         }
 
         .nav-pills-custom .nav-link.active {
             background-color: var(--primary-gold);
             color: #fff;
+            border-color: var(--primary-gold);
             box-shadow: 0 4px 12px rgba(165,116,42,0.3);
+        }
+
+        .admin-tab-actions {
+            margin-bottom: 8px;
+        }
+
+        #addProductHeaderBtn {
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(165,116,42,0.25);
+            white-space: nowrap;
         }
 
         /* Product & Order Tables */
@@ -219,42 +268,108 @@
             object-fit: cover;
         }
 
-        /* Mobile Responsive Enhancements */
+        /* Utility Gaps */
+        .gap-1 { gap: 6px; }
+        .gap-2 { gap: 10px; }
+        .gap-3 { gap: 16px; }
+
+        /* Responsive Breakpoints: Tablet & Mobile */
+        @media (max-width: 1199.98px) {
+            .admin-controls-wrapper {
+                align-items: flex-start;
+            }
+            .admin-tab-actions {
+                margin-top: 6px;
+            }
+        }
+
+        @media (max-width: 991.98px) {
+            .admin-tab-bar {
+                margin-bottom: 20px;
+            }
+            .admin-controls-wrapper {
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+            .admin-tab-actions {
+                width: 100%;
+                margin-top: 10px;
+                display: flex;
+                justify-content: flex-start;
+            }
+            #addProductHeaderBtn {
+                margin-top: 4px;
+            }
+        }
+
         @media (max-width: 767.98px) {
+            .admin-navbar {
+                padding: 10px 14px;
+            }
+            .admin-brand {
+                font-size: 15px;
+                gap: 8px;
+            }
+            .admin-brand img {
+                width: 32px;
+                height: 32px;
+            }
             .nav-pills-custom {
                 display: flex;
                 flex-wrap: nowrap;
                 overflow-x: auto;
                 white-space: nowrap;
                 padding-bottom: 8px;
+                margin-bottom: 4px;
                 width: 100%;
                 -webkit-overflow-scrolling: touch;
             }
+            .nav-pills-custom::-webkit-scrollbar {
+                height: 4px;
+            }
+            .nav-pills-custom::-webkit-scrollbar-thumb {
+                background: #e2d2ba;
+                border-radius: 4px;
+            }
             .nav-pills-custom .nav-item {
                 flex: 0 0 auto;
+                margin-right: 8px;
+                margin-bottom: 0;
             }
             .nav-pills-custom .nav-link {
-                padding: 6px 14px;
+                padding: 7px 14px;
                 font-size: 13px;
             }
+            .admin-tab-actions {
+                width: 100%;
+                margin-top: 12px;
+            }
+            #addProductHeaderBtn {
+                width: 100%;
+                justify-content: center;
+                display: flex;
+                padding: 10px 16px;
+                margin-top: 4px;
+            }
             .stat-card {
-                padding: 14px;
+                padding: 14px 12px;
                 gap: 10px;
-                margin-bottom: 12px;
+                margin-bottom: 14px;
             }
             .stat-val {
                 font-size: 18px;
             }
+            .stat-label {
+                font-size: 11px;
+            }
             .stat-icon {
                 width: 40px;
                 height: 40px;
-                font-size: 18px;
+                font-size: 17px;
+                border-radius: 10px;
             }
             .content-card {
-                padding: 16px 12px;
-            }
-            .admin-navbar {
-                padding: 10px 14px;
+                padding: 18px 14px;
             }
             .login-card {
                 margin: 15px;
@@ -274,6 +389,9 @@
             .btn-group-sm > .btn {
                 font-size: 11px;
                 padding: 4px 8px;
+            }
+            .table-responsive table {
+                min-width: 680px;
             }
         }
     </style>
@@ -337,7 +455,7 @@
 
             <!-- KPI Stats Row -->
             <div class="row">
-                <div class="col-md-3 col-sm-6" onclick="switchTab('products')" style="cursor: pointer;">
+                <div class="col-6 col-lg-3" onclick="switchTab('products')" style="cursor: pointer;">
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fa fa-boxes"></i></div>
                         <div>
@@ -346,7 +464,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6" onclick="switchTab('orders')" style="cursor: pointer;">
+                <div class="col-6 col-lg-3" onclick="switchTab('orders')" style="cursor: pointer;">
                     <div class="stat-card">
                         <div class="stat-icon"><i class="fa fa-shopping-bag"></i></div>
                         <div>
@@ -355,16 +473,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6" onclick="switchTab('reports')" style="cursor: pointer;">
+                <div class="col-6 col-lg-3" onclick="switchTab('reports')" style="cursor: pointer;">
                     <div class="stat-card">
                         <div class="stat-icon" style="background:#e6f4ea; color:#137333;"><i class="fa fa-wallet"></i></div>
                         <div>
-                            <div class="stat-val" id="statTotalRevenue" style="font-size: 20px;">Rp 0</div>
+                            <div class="stat-val" id="statTotalRevenue">Rp 0</div>
                             <div class="stat-label">Total Estimasi Omset</div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6" onclick="switchTab('orders')" style="cursor: pointer;">
+                <div class="col-6 col-lg-3" onclick="switchTab('orders')" style="cursor: pointer;">
                     <div class="stat-card">
                         <div class="stat-icon" style="background:#fff4e5; color:#b76e00;"><i class="fa fa-clock"></i></div>
                         <div>
@@ -376,45 +494,49 @@
             </div>
 
             <!-- Tab Navigation & Controls -->
-            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-                <ul class="nav nav-pills nav-pills-custom">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="tabProductsBtn" href="javascript:void(0)" onclick="switchTab('products')">
-                            <i class="fa fa-list mr-2"></i> Produk & Stok
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tabOrdersBtn" href="javascript:void(0)" onclick="switchTab('orders')">
-                            <i class="fa fa-shopping-bag mr-2"></i> Order & Pembayaran
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tabReportsBtn" href="javascript:void(0)" onclick="switchTab('reports')">
-                            <i class="fa fa-chart-line mr-2"></i> Laporan Keuangan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tabReviewsBtn" href="javascript:void(0)" onclick="switchTab('reviews')">
-                            <i class="fa fa-star mr-2"></i> Ulasan Pelanggan
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="tabSettingsBtn" href="javascript:void(0)" onclick="switchTab('settings')">
-                            <i class="fa fa-cog mr-2"></i> Pengaturan Toko & Login
-                        </a>
-                    </li>
-                </ul>
+            <div class="admin-tab-bar mb-4">
+                <div class="admin-controls-wrapper">
+                    <ul class="nav nav-pills nav-pills-custom">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tabProductsBtn" href="javascript:void(0)" onclick="switchTab('products')">
+                                <i class="fa fa-list mr-2"></i> Produk & Stok
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tabOrdersBtn" href="javascript:void(0)" onclick="switchTab('orders')">
+                                <i class="fa fa-shopping-bag mr-2"></i> Order & Pembayaran
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tabReportsBtn" href="javascript:void(0)" onclick="switchTab('reports')">
+                                <i class="fa fa-chart-line mr-2"></i> Laporan Keuangan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tabReviewsBtn" href="javascript:void(0)" onclick="switchTab('reviews')">
+                                <i class="fa fa-star mr-2"></i> Ulasan Pelanggan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tabSettingsBtn" href="javascript:void(0)" onclick="switchTab('settings')">
+                                <i class="fa fa-cog mr-2"></i> Pengaturan Toko & Login
+                            </a>
+                        </li>
+                    </ul>
 
-                <button id="addProductHeaderBtn" class="btn btn-gold" onclick="openAddProductModal()">
-                    <i class="fa fa-plus-circle mr-1"></i> + Tambah Produk Baru
-                </button>
+                    <div class="admin-tab-actions">
+                        <button id="addProductHeaderBtn" class="btn btn-gold" onclick="openAddProductModal()">
+                            <i class="fa fa-plus-circle mr-1"></i> + Tambah Produk Baru
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- TAB 1: MANAJEMEN PRODUK -->
             <div id="tabProductsView" class="content-card">
-                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h5 class="font-weight-bold mb-0">Daftar Produk Buket & Inventaris Stok</h5>
-                    <div class="d-flex gap-2" style="max-width: 320px;">
+                    <div class="d-flex gap-2 w-100-mobile" style="max-width: 320px;">
                         <input type="text" id="searchProductInput" class="form-control form-control-sm" placeholder="Cari nama produk..." onkeyup="filterProductTable()">
                     </div>
                 </div>
