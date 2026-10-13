@@ -39,27 +39,33 @@
 
 		.service-card {
 			background: #fff;
-			border-radius: 12px;
-			padding: 24px;
-			box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+			border-radius: 14px;
+			padding: 36px 24px 28px 24px;
+			box-shadow: 0 4px 18px rgba(0,0,0,0.06);
 			height: 100%;
 			border-top: 4px solid #a5742a;
-			transition: transform 0.3s ease;
+			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			display: flex;
+			flex-direction: column;
 		}
 		.service-card:hover {
 			transform: translateY(-5px);
+			box-shadow: 0 10px 25px rgba(165, 116, 42, 0.12);
 		}
 		.service-card h3 {
-			font-size: 18px;
+			font-size: 19px;
 			font-weight: 700;
-			color: #333;
-			margin-bottom: 10px;
+			color: #2b2b2b;
+			margin-top: 6px;
+			margin-bottom: 14px;
+			line-height: 1.4;
 		}
 		.service-card p {
 			font-size: 14px;
 			color: #666;
 			line-height: 1.6;
 			margin-bottom: 0;
+			flex-grow: 1;
 		}
 
 		/* FAQ Accordion Styling */
@@ -310,28 +316,28 @@
 			</section>
 
 			<!-- 4 PILAR LAYANAN -->
-			<section class="ftco-section pt-0 pb-4">
+			<section class="ftco-section pt-5 pb-4">
 				<div class="container px-md-4">
-					<div class="row mb-5">
-						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-3">
+					<div class="row mb-5 mt-2">
+						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-4">
 							<div class="service-card">
 								<h3>🎨 Kustomisasi Bebas</h3>
 								<p>Pilih tema warna, jenis bunga mawar/satin, isian snack/uang, hingga ukuran sesuai budget yang Anda rencanakan.</p>
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-3">
+						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-4">
 							<div class="service-card">
 								<h3>📸 Cetak Foto & Kartu</h3>
 								<p>Ingin menyelipkan foto kenangan atau kartu ucapan puitis? Kami sediakan gratis dengan desain eksklusif Dzakirah.</p>
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-3">
+						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-4">
 							<div class="service-card">
 								<h3>🚚 COD & Antar Venue</h3>
 								<p>Bisa COD daerah Yogyakarta & Gedangsari, atau kirim instan ke alamat/kampus/gedung wisuda tepat waktu.</p>
 							</div>
 						</div>
-						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-3">
+						<div class="col-md-6 col-lg-3 d-flex align-self-stretch mb-4">
 							<div class="service-card">
 								<h3>🔍 Live Order Tracking</h3>
 								<p>Pantau progres pembuatan buket Anda secara realtime dari status pesanan hingga foto hasil selesai sebelum dikirim.</p>

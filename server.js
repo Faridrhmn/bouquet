@@ -186,7 +186,7 @@ app.get('/api/auth/me', authenticateAdmin, (req, res) => {
 app.put('/api/auth/update-profile', authenticateAdmin, async (req, res) => {
     const { username, current_password, new_password, name } = req.body;
     try {
-        const userResult = await pool.query('SELECT * FROM users WHERE id = $1', [req.admin.id]);
+        const userResult = await pool.query('SELECT * FROM admin_users WHERE id = $1', [req.admin.id]);
         if (userResult.rows.length === 0) {
             return res.status(404).json({ success: false, message: 'User admin tidak ditemukan.' });
         }
@@ -211,7 +211,7 @@ app.put('/api/auth/update-profile', authenticateAdmin, async (req, res) => {
         const updatedName = name && name.trim() !== '' ? name.trim() : user.name;
 
         await pool.query(
-            'UPDATE users SET username = $1, password_hash = $2, name = $3 WHERE id = $4',
+            'UPDATE admin_users SET username = $1, password_hash = $2, name = $3 WHERE id = $4',
             [updatedUsername, newHash, updatedName, req.admin.id]
         );
 

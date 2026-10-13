@@ -65,12 +65,19 @@
             box-shadow: 0 4px 12px rgba(165, 116, 42, 0.3);
         }
 
+        #productGrid {
+            row-gap: 28px;
+        }
+        #productGrid > [class*="col-"] {
+            margin-bottom: 28px;
+        }
+
         .bouquet-card {
             background: #fff;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            margin-bottom: 30px;
+            margin-bottom: 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #eaeaea;
             display: flex;
@@ -1312,7 +1319,7 @@
 
             filtered.forEach(p => {
                 const col = document.createElement("div");
-                col.className = "col-md-4 col-sm-6 ftco-animate";
+                col.className = "col-md-4 col-sm-6 mb-4 ftco-animate";
                 const isOutOfStock = p.stock_quantity !== undefined && p.stock_quantity <= 0;
                 const stockBadge = isOutOfStock
                     ? `<span class="badge badge-danger px-2 py-1">Stok Habis</span>`
